@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "This is an edtech api ",
   "main": "server.js",
+  "type": "module",
   "scripts": {
-    "start":"nodemon server.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
