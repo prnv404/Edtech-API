@@ -8,6 +8,7 @@ const signup = asyncHandler(async (req, res) => {
   if (!name||!phoneNo || !password) {
     throw new CustomError.BadRequestError('please provide all data')
   }
+  
   res.send('hello')
 })
 const login = asyncHandler(async (req, res) => {
