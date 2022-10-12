@@ -20,8 +20,3 @@ const getSingleUser = asynchandler(async (req, res) => {
 const updateUser = asynchandler(async (req, res) => {})
 
 export { getAllUser, getSingleUser, updateUser }
-
-/*
-  "phoneNumber":"9547063968",
-    "password":"pranav"
-  */
