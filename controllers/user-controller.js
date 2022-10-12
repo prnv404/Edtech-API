@@ -2,6 +2,7 @@ import asynchandler from 'express-async-handler'
 import User from '../models/user-model.js'
 import { StatusCodes } from 'http-status-codes'
 import CustomError from '../errors/index.js'
+import { attachCookieToResponse, createTokenUser } from '../utils/index.js'
 
 const getAllUser = asynchandler(async (req, res) => {
   const users = await User.find({})
@@ -17,6 +18,14 @@ const getSingleUser = asynchandler(async (req, res) => {
   res.status(StatusCodes.OK).json({ user })
 })
 
-const updateUser = asynchandler(async (req, res) => {})
+const changeStandred = asynchandler(async (req, res) => {
 
-export { getAllUser, getSingleUser, updateUser }
+  const user = await User.findOneAndUpdate({ _id: req.user.userId }, req.body, {
+    runValidators: true,
+    new: true,
+  })
+ 
+  res.status(StatusCodes.OK).json({ user })
+})
+
+export { getAllUser, getSingleUser, changeStandred }
