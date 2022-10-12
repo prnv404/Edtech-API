@@ -23,6 +23,11 @@ const CourseSchema = mongoose.Schema(
       enum: ['8', '9', '10', '11', '12 '],
       required: [true, 'please provide class'],
     },
+    availability: {
+      type: String,
+      enum: ['free', 'paid'],
+      required:[true,'please provide availability']
+    }
   },
   { timestamps: true }
 )
