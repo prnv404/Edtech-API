@@ -4,7 +4,6 @@ import CustomError from '../errors/index.js'
 import User from '../models/user-model.js'
 import { attachCookieToResponse, createTokenUser } from '../utils/index.js'
 
-
 /* This is a function that is called when a user signs up. It takes in the request and response
 objects. It then takes the name, phoneNumber, password, and standerd from the request body. It then
 checks if the user is the first user to sign up. If they are, they are given the role of admin. If
@@ -43,6 +42,11 @@ const login = asyncHandler(async (req, res) => {
   const user = await User.findOne({ phoneNumber: phoneNumber })
   if (!user) {
     throw new CustomError.NotFound(`No user found with this ${phoneNumber}`)
+  }
+  const isMatch = await user.comparePassword(password)
+ 
+  if (!isMatch) {
+    throw new CustomError.UnAuthorized('Incorrect Password')
   }
   const tokenUser = createTokenUser(user)
   attachCookieToResponse({ res, user: tokenUser })
