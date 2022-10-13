@@ -26,3 +26,4 @@ router.route('/allvideos').get(authenticateUser, getAllvideos)
 router.route('/:id').get(authenticateUser, getSingleVideo)
 
 export default router
+
