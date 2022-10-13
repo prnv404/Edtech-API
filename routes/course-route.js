@@ -2,28 +2,23 @@ import express from 'express'
 const router = express.Router()
 
 import {
-  getAllSubject,
-  getAllChapters,
-  getAllvideos,
+  getchapters,
+  getAllVideo,
   getSingleVideo,
+  createCourse,
+  getSubjects,
 } from '../controllers/course-controller.js'
 import {
   authenticateUser,
   authorizePermission,
 } from '../middleware/authenticate.js'
 
+router.route('/subject').get(authenticateUser, getSubjects)
 router
-  .route('/')
-  .get(authenticateUser, authorizePermission('admin'), getAllSubject)
-router
-  .route('/subjects')
-  .get(authenticateUser, authorizePermission('admin'), getAllSubject)
-router
-  .route('/chapters')
-  .get(authenticateUser, authorizePermission('admin'), getAllChapters)
-
-router.route('/allvideos').get(authenticateUser, getAllvideos)
-router.route('/:id').get(authenticateUser, getSingleVideo)
+  .route('/create')
+  .post(authenticateUser, authorizePermission('admin'), createCourse)
+router.route('/chapters').get(authenticateUser, getchapters)
+router.route('/section').get(authenticateUser, getAllVideo)
+router.route('/video/:id').get(authenticateUser, getSingleVideo)
 
 export default router
-

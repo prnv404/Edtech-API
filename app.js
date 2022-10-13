@@ -20,7 +20,7 @@ app.use(fileUpload())
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/user', userRouter)
-app.use('api/v1/course', courseRouter)
+app.use('/api/v1/course', courseRouter)
 
 app.use(notFound)
 app.use(errorhandler)

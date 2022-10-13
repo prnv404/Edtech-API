@@ -3,19 +3,44 @@ import Course from '../models/course-model.js'
 import { StatusCodes } from 'http-status-codes'
 import CustomError from '../errors/index.js'
 
-const getAllSubject = asynchandler(async(req, res)=> {
-  res.send('Get all subject')
+const getSubjects = asynchandler(async (req, res) => {
+  const standerd = req.user.standerd
+  const subject = await Course.find({ standerd: standerd }).select('subject')
+  res.status(StatusCodes.OK).json(subject)
 })
 
-const getAllChapters = asynchandler(async(req, res)=> {
-  res.send('Get all chapters')
+const getchapters = asynchandler(async (req, res) => {
+  const sub = req.query.subject
+
+  const chapters = await Course.find({ subject: sub })
+
+  res.status(StatusCodes.OK).json(chapters)
 })
-const getAllvideos = asynchandler(async(req, res)=> {
-  res.send('Get all chapters')
+
+const getAllVideo = asynchandler(async (req, res) => {
+  const { chapterNo, subject } = req.query
+  const videoId = req.params.id
+  console.log(videoId)
+  const video = await Course.findOne({
+    _id: videoId,
+  })
+
+  res.status(StatusCodes.OK).json(video)
 })
 const getSingleVideo = asynchandler(async (req, res) => {
-  res.send('Get all chapters')
+  const { chapterNo, subject } = req.query
+  const videoId = req.params.id
+  console.log(videoId)
+  const video = await Course.findOne({
+    _id: videoId,
+  })
+
+  res.status(StatusCodes.OK).json(video)
 })
 
+const createCourse = asynchandler(async (req, res) => {
+  const course = await Course.create(req.body)
+  res.send(course)
+})
 
-export {getAllChapters ,getAllSubject,getAllvideos,getSingleVideo}
+export { getchapters, getAllVideo, createCourse, getSingleVideo, getSubjects }
