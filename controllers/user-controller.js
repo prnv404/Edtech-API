@@ -11,19 +11,15 @@ const getUser = asynchandler(async (req, res) => {
 })
 
 const updateUser = asynchandler(async (req, res) => {
-  const { standerd, subscription } = req.body
-
+  const changeStd = req.body.standerd
   const user = await User.findOne({ _id: req.user.userId })
-
-  user.standerd = standerd || user.standerd
-  user.subscription = subscription || user.subscription
-
+  user.standerd = changeStd
   await user.save()
 
   const tokenUser = createTokenUser(user)
   attachCookieToResponse({ res, user: tokenUser })
 
-  res.status(StatusCodes.OK).json(tokenUser)
+  res.status(StatusCodes.CREATED).json({ tokenUser })
 })
 
 export { updateUser, getUser }

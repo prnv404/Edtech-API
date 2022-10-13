@@ -24,7 +24,7 @@ const UserSchema = mongoose.Schema(
     },
     standerd: {
       type: String,
-      enum: ['9', '10', '11', '12'],
+      enum: ['8', '9', '10', '11', '12'],
       required: [true, 'please provide your standerd'],
     },
     password: {
