@@ -3,14 +3,19 @@ import Course from '../models/course-model.js'
 import { StatusCodes } from 'http-status-codes'
 import CustomError from '../errors/index.js'
 
-const createCourse = asynchandler(async (req, res) => {
-  res.send('createCourse')
-})
-const updateCourser = asynchandler(async (req, res) => {
-  res.send('updateCourser')
-})
-const deleteCourse = asynchandler(async (req, res) => {
-  res.send('deleteCourse')
+const getAllSubject = asynchandler(async(req, res)=> {
+  res.send('Get all subject')
 })
 
-export { createCourse, updateCourser, deleteCourse }
+const getAllChapters = asynchandler(async(req, res)=> {
+  res.send('Get all chapters')
+})
+const getAllvideos = asynchandler(async(req, res)=> {
+  res.send('Get all chapters')
+})
+const getSingleVideo = asynchandler(async (req, res) => {
+  res.send('Get all chapters')
+})
+
+
+export {getAllChapters ,getAllSubject,getAllvideos,getSingleVideo}

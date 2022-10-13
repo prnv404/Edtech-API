@@ -2,10 +2,11 @@ import express from 'express'
 const router = express.Router()
 
 import {
-  createCourse,
-  updateCourser,
-  deleteCourse,
-} from '../controllers/course-controller'
+  getAllSubject,
+  getAllChapters,
+  getAllvideos,
+  getSingleVideo,
+} from '../controllers/course-controller.js'
 import {
   authenticateUser,
   authorizePermission,
@@ -13,12 +14,15 @@ import {
 
 router
   .route('/')
-  .post(authenticateUser, authorizePermission('admin'), createCourse)
+  .get(authenticateUser, authorizePermission('admin'), getAllSubject)
 router
-  .route('/:id')
-  .patch(authenticateUser, authorizePermission('admin'), updateCourser)
+  .route('/subjects')
+  .get(authenticateUser, authorizePermission('admin'), getAllSubject)
 router
-  .route('/:id')
-  .delete(authenticateUser, authorizePermission('admin'), deleteCourse)
+  .route('/chapters')
+  .get(authenticateUser, authorizePermission('admin'), getAllChapters)
+
+router.route('/allvideos').get(authenticateUser, getAllvideos)
+router.route('/:id').get(authenticateUser, getSingleVideo)
 
 export default router
