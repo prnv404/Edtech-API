@@ -2,30 +2,26 @@ import asynchandler from 'express-async-handler'
 import User from '../models/user-model.js'
 import { StatusCodes } from 'http-status-codes'
 import CustomError from '../errors/index.js'
+import { attachCookieToResponse, createTokenUser } from '../utils/index.js'
 
-
-const getAllUser = asynchandler(async (req, res) => {
-  const users = await User.find({})
-  res.status(StatusCodes.OK).json({ count: users.length, users })
+const getUser = asynchandler(async (req, res) => {
+  const userId = req.user.userId
+  const user = await User.findOne({ _id: userId }).select('-password')
+  res.status(StatusCodes.OK).json(user)
 })
 
-const getSingleUser = asynchandler(async (req, res) => {
-  const userId = req.params.id
-  const user = await User.findOne({ _id: userId })
-  if (!user) {
-    throw new CustomError.NotFound('No user found')
-  }
-  res.status(StatusCodes.OK).json({ user })
+const updateUser = asynchandler(async (req, res) => {
+  const { standred, subscription } = req.body
+
+  const user = await User.findOne({ _id: req.user.userId })
+
+  user.standred = standred || user.standred
+  user.subscription = subscription || user.subscription
+
+  const tokenUser = createTokenUser(user)
+  attachCookieToResponse({ res, user: tokenUser })
+
+  res.status(StatusCodes.OK).json(tokenUser)
 })
 
-const changeStandred = asynchandler(async (req, res) => {
-
-  const user = await User.findOneAndUpdate({ _id: req.user.userId }, req.body, {
-    runValidators: true,
-    new: true,
-  })
- 
-  res.status(StatusCodes.OK).json({ user })
-})
-
-export { getAllUser, getSingleUser, changeStandred }
+export { updateUser, getUser }

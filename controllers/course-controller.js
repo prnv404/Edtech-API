@@ -3,19 +3,26 @@ import Course from '../models/course-model.js'
 import { StatusCodes } from 'http-status-codes'
 import CustomError from '../errors/index.js'
 
-const getAllSubject = asynchandler(async(req, res)=> {
-  res.send('Get all subject')
+const getchapters = asynchandler(async (req, res) => {
+  const subject = req.query.subject
+
+  const chapters = Course.find({ subject: subject, class: req.user.class })
+
+  res.status(StatusCodes.OK).json(chapters)
 })
 
-const getAllChapters = asynchandler(async(req, res)=> {
-  res.send('Get all chapters')
-})
-const getAllvideos = asynchandler(async(req, res)=> {
-  res.send('Get all chapters')
-})
-const getSingleVideo = asynchandler(async (req, res) => {
-  res.send('Get all chapters')
+const getVideo = asynchandler(async (req, res) => {
+  const { chapterNo, subject } = req.query
+  const videoId = req.params.id
+
+  const video = Course.findOne({
+    _id: videoId,
+    chapterNo: chapterNo,
+    subject: subject,
+    class: req.user.class,
+  })
+  
+  res.status(StatusCodes.OK).json(video)
 })
 
-
-export {getAllChapters ,getAllSubject,getAllvideos,getSingleVideo}
+export { getchapters, getVideo }

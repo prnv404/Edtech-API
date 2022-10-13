@@ -1,13 +1,15 @@
 import mongoose from 'mongoose'
 const CourseSchema = mongoose.Schema(
   {
-    name: {
+    title: {
       type: String,
-      required: [true, 'please provide a name'],
+      required: [true, 'please provide a title'],
     },
-    image: {
+    discription: {
       type: String,
-      required: [true, 'please provide a image'],
+      required: [true, 'please provide description '],
+      maxlength: 200,
+      minlength: 20,
     },
     video: {
       type: String,
@@ -15,7 +17,18 @@ const CourseSchema = mongoose.Schema(
     },
     subject: {
       type: String,
-      enum: ['physics', 'chemistry', 'biology', 'maths', 'computer science'],
+      enum: [
+        'physics',
+        'chemistry',
+        'biology',
+        'maths',
+        'computer science',
+        'social science',
+        'biology',
+        'malayalam',
+        'english',
+        'hindhi',
+      ],
       required: [true, 'please provide subject'],
     },
     class: {
@@ -23,12 +36,16 @@ const CourseSchema = mongoose.Schema(
       enum: ['8', '9', '10', '11', '12 '],
       required: [true, 'please provide class'],
     },
-    availability: {
-      type: String,
-      enum: ['free', 'paid'],
-      required:[true,'please provide availability']
-    }
+    chapterNo: {
+      type: Number,
+      required: [true, 'please provide chappter no'],
+    },
+    positionOfVideo: {
+      type: Number,
+      required: [true, 'please provide video position in chapters'],
+    },
   },
+
   { timestamps: true }
 )
 

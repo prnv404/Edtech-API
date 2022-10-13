@@ -1,5 +1,5 @@
 const notFound = async (req, res) => {
-  res.send('Route Not found')
+  res.status(404).json({ message: 'Route NOt found' })
 }
 
 export default notFound

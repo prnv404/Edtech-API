@@ -10,6 +10,7 @@ const authenticateUser = async (req, res, next) => {
   try {
     const payload = isTokenValid({ token })
     req.user = payload
+    console.log(req.user)
     next()
   } catch (error) {
     console.log(error)
@@ -19,7 +20,7 @@ const authenticateUser = async (req, res, next) => {
 
 const authorizePermission = (...roles) => {
   return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
+    if (!roles.includes(req.user.student)) {
       throw new CustomError.unAutenticated(
         'You have no permission to access to this route'
       )

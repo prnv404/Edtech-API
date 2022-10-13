@@ -5,16 +5,9 @@ import {
   authenticateUser,
   authorizePermission,
 } from '../middleware/authenticate.js'
-import {
-  getAllUser,
-  getSingleUser,
-  changeStandred,
-} from '../controllers/user-controller.js'
+import { updateUser, getUser } from '../controllers/user-controller.js'
 
-router
-  .route('/')
-  .get(authenticateUser, authorizePermission('admin'), getAllUser)
-router.route('/:id').get(authenticateUser, getSingleUser)
-router.route('/update').patch(authenticateUser, changeStandred)
+router.route('/').get(authenticateUser, getUser)
+router.route('/').patch(authenticateUser, updateUser)
 
 export default router
