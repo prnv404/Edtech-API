@@ -2,7 +2,7 @@ import asynchandler from 'express-async-handler'
 import User from '../models/user-model.js'
 import { StatusCodes } from 'http-status-codes'
 import CustomError from '../errors/index.js'
-import { attachCookieToResponse, createTokenUser } from '../utils/index.js'
+
 
 const getAllUser = asynchandler(async (req, res) => {
   const users = await User.find({})
