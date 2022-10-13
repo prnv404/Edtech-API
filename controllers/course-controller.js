@@ -27,6 +27,7 @@ const getAllVideo = asynchandler(async (req, res) => {
 
   res.status(StatusCodes.OK).json(video)
 })
+
 const getSingleVideo = asynchandler(async (req, res) => {
   const { chapterNo, subject } = req.query
   const videoId = req.params.id
