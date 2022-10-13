@@ -6,13 +6,17 @@ import CustomError from '../errors/index.js'
 const getSubjects = asynchandler(async (req, res) => {
   const standerd = req.user.standerd
   const subject = await Course.find({ standerd: standerd }).select('subject')
+  console.log(subject)
+
   res.status(StatusCodes.OK).json(subject)
 })
 
 const getchapters = asynchandler(async (req, res) => {
   const sub = req.query.subject
 
-  const chapters = await Course.find({ subject: sub })
+  const chapters = await Course.find({ subject: sub }).select(
+    'chapterNo chapterName'
+  )
 
   res.status(StatusCodes.OK).json(chapters)
 })
@@ -44,4 +48,16 @@ const createCourse = asynchandler(async (req, res) => {
   res.send(course)
 })
 
-export { getchapters, getAllVideo, createCourse, getSingleVideo, getSubjects }
+const vidoeUpload = asynchandler(async (req, res, next) => {
+  console.log('video upload')
+  next()
+})
+
+export {
+  getchapters,
+  getAllVideo,
+  createCourse,
+  getSingleVideo,
+  getSubjects,
+  vidoeUpload,
+}

@@ -7,6 +7,7 @@ import {
   getSingleVideo,
   createCourse,
   getSubjects,
+  vidoeUpload,
 } from '../controllers/course-controller.js'
 import {
   authenticateUser,
@@ -16,7 +17,12 @@ import {
 router.route('/subject').get(authenticateUser, getSubjects)
 router
   .route('/create')
-  .post(authenticateUser, authorizePermission('admin'), createCourse)
+  .post(
+    authenticateUser,
+    authorizePermission('admin'),
+    vidoeUpload,
+    createCourse
+  )
 router.route('/chapters').get(authenticateUser, getchapters)
 router.route('/section').get(authenticateUser, getAllVideo)
 router.route('/video/:id').get(authenticateUser, getSingleVideo)

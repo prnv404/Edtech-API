@@ -31,7 +31,7 @@ const CourseSchema = mongoose.Schema(
       ],
       required: [true, 'please provide subject'],
     },
-    class: {
+    standerd: {
       type: String,
       enum: ['8', '9', '10', '11', '12 '],
       required: [true, 'please provide class'],
@@ -46,8 +46,8 @@ const CourseSchema = mongoose.Schema(
     },
     positionOfVideo: {
       type: Number,
-      required:[true,'please provide video position in chapters'],
-    }
+      required: [true, 'please provide video position in chapters'],
+    },
   },
 
   { timestamps: true }

@@ -12,6 +12,7 @@ import errorhandler from './middleware/errorhandler.js'
 import authRouter from './routes/auth-route.js'
 import userRouter from './routes/user-route.js'
 import courseRouter from './routes/course-route.js'
+import subjectRouter from './routes/subject-route.js'
 
 app.use(express.json())
 app.use(cookieParser(process.env.JWT_SECRET))
@@ -21,6 +22,7 @@ app.use(fileUpload())
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/user', userRouter)
 app.use('/api/v1/course', courseRouter)
+app.use('/api/v1/subject', subjectRouter)
 
 app.use(notFound)
 app.use(errorhandler)
