@@ -40,10 +40,14 @@ const CourseSchema = mongoose.Schema(
       type: Number,
       required: [true, 'please provide chappter no'],
     },
+    chapterName: {
+      type: String,
+      required: [true, 'please provide chappter no'],
+    },
     positionOfVideo: {
       type: Number,
-      required: [true, 'please provide video position in chapters'],
-    },
+      required:[true,'please provide video position in chapters'],
+    }
   },
 
   { timestamps: true }

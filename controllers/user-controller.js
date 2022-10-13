@@ -11,12 +11,14 @@ const getUser = asynchandler(async (req, res) => {
 })
 
 const updateUser = asynchandler(async (req, res) => {
-  const { standred, subscription } = req.body
+  const { standerd, subscription } = req.body
 
   const user = await User.findOne({ _id: req.user.userId })
 
-  user.standred = standred || user.standred
+  user.standerd = standerd || user.standerd
   user.subscription = subscription || user.subscription
+
+  await user.save()
 
   const tokenUser = createTokenUser(user)
   attachCookieToResponse({ res, user: tokenUser })

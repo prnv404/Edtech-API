@@ -4,7 +4,7 @@ const createToken = (user) => {
     userId: user._id,
     role: user.role,
     subscription: user.subscription,
-    class: user.class,
+    class: user.standerd,
   }
 }
 
