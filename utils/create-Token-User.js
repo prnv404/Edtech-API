@@ -1,11 +1,10 @@
-const createToken = (user) => {
-  return {
-    name: user.name,
-    userId: user._id,
-    role: user.role,
-    subscription: user.subscription,
-    standerd: user.standerd,
-  }
-}
+const createToken = (user, verified) => {
+   return {
+      name: user.name,
+      userId: user._id,
+      isVerified: verified.verified,
+      standerd: user.standerd,
+   };
+};
 
-module.exports =  createToken
+module.exports = createToken;
