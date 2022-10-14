@@ -3,7 +3,7 @@ const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../errors');
 const User = require('../models/user-model');
 const { attachCookieToResponse, createTokenUser } = require('../utils');
-const createOTP = require('../utils/create-otp');
+const { createOTP, verifyOTP } = require('../utils/create-otp');
 
 const signup = asyncHandler(async (req, res) => {
   const { name, phoneNumber, password, standerd } = req.body;
@@ -53,7 +53,8 @@ const login = asyncHandler(async (req, res) => {
 });
 
 const otp = asyncHandler(async (req, res) => {
-  const { mobile } = req.body;
+  const { mobileNumber, otp } = req.query;
+ verifyOTP({ res, mobileNO: mobileNumber, code: otp });
 });
 
 /* This is a function that is called when a user logs out. It takes in the request and response

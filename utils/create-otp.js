@@ -1,11 +1,8 @@
-require('dotenv').config()
-const client = require("twilio")(
+require('dotenv').config();
+const client = require('twilio')(
   process.env.ACCOUNT_SID,
   process.env.AUTH_TOKEN
 );
-
-
-
 
 const createOTP = ({ res, phonenumber, channel }) => {
   client.verify
@@ -24,4 +21,26 @@ const createOTP = ({ res, phonenumber, channel }) => {
     });
 };
 
-module.exports =  createOTP;
+const verifyOTP = ({ res, mobileNO, code }) => {
+  console.log(mobileNO)
+  client.verify
+    .services(process.env.SERVICE_ID)
+    .verificationChecks.create({
+      to: `+91${mobileNO}`,
+      code: code,
+    })
+    .then((data) => {
+      console.log(data)
+      if (data.status === 'approved') {
+        res.status(200).send({
+          message: 'User is Verified!!',
+          data,
+        });
+      }
+    });
+};
+
+module.exports = {
+  createOTP,
+  verifyOTP,
+};
