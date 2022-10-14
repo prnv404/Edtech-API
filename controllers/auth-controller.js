@@ -65,7 +65,7 @@ const check = async (req, res) => {
    const { phone, OTP } = req.body;
 
    const isVerified = await verifyOTP({ phoneNumber: phone, code: OTP });
-
+   // const { valid } = isVerified;
    if (isVerified.valid === false) {
       throw new CustomError.BadRequestError('Incorrect OTP');
    }
