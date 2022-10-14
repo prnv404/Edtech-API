@@ -13,8 +13,9 @@ const getSubjects = asynchandler(async (req, res) => {
 
 const getchapters = asynchandler(async (req, res) => {
    const sub = req.query.subject
-
-   const chapters = await Course.find({ subject: sub }).select('chapterNo chapterName')
+   const chapters = await Course.find({ subject: sub }).select(
+      'chapterNo chapterName'
+   )
 
    res.status(StatusCodes.OK).json(chapters)
 })
@@ -50,4 +51,11 @@ const vidoeUpload = asynchandler(async (req, res, next) => {
    next()
 })
 
-export { getchapters, getAllVideo, createCourse, getSingleVideo, getSubjects, vidoeUpload }
+export {
+   getchapters,
+   getAllVideo,
+   createCourse,
+   getSingleVideo,
+   getSubjects,
+   vidoeUpload,
+}
