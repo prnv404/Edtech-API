@@ -1,30 +1,30 @@
-import express from 'express'
-const router = express.Router()
+const express = require('express');
+// const router = express.Router();
 
-import {
-  getchapters,
-  getAllVideo,
-  getSingleVideo,
-  createCourse,
-  getSubjects,
-  vidoeUpload,
-} from '../controllers/course-controller.js'
-import {
-  authenticateUser,
-  authorizePermission,
-} from '../middleware/authenticate.js'
+// const {
+//   getchapters,
+//   getAllVideo,
+//   getSingleVideo,
+//   createCourse,
+//   getSubjects,
+//   vidoeUpload,
+// } = require('../controllers/course-controller');
+// const {
+//   authenticateUser,
+//   authorizePermission,
+// } = require('../middleware/authenticate');
 
-router.route('/subject').get(authenticateUser, getSubjects)
-router
-  .route('/create')
-  .post(
-    authenticateUser,
-    authorizePermission('admin'),
-    vidoeUpload,
-    createCourse
-  )
-router.route('/chapters').get(authenticateUser, getchapters)
-router.route('/section').get(authenticateUser, getAllVideo)
-router.route('/video/:id').get(authenticateUser, getSingleVideo)
+// router.route('/subject').get(authenticateUser, getSubjects);
+// router
+//   .route('/create')
+//   .post(
+//     authenticateUser,
+//     authorizePermission('admin'),
+//     vidoeUpload,
+//     createCourse
+//   );
+// router.route('/chapters').get(authenticateUser, getchapters);
+// router.route('/section').get(authenticateUser, getAllVideo);
+// router.route('/video/:id').get(authenticateUser, getSingleVideo);
 
-export default router
+// module.exports = router;

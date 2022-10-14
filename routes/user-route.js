@@ -1,13 +1,13 @@
-import express from 'express'
-const router = express.Router()
+// const express = require('express');
+// const router = express.Router();
 
-import {
-  authenticateUser,
-  authorizePermission,
-} from '../middleware/authenticate.js'
-import { updateUser, getUser } from '../controllers/user-controller.js'
+// const {
+//   authenticateUser,
+//   authorizePermission,
+// } = require('../middleware/authenticate');
+// const { updateUser, getUser } = require('../controllers/user-controller');
 
-router.route('/').get(authenticateUser, getUser)
-router.route('/').patch(authenticateUser, updateUser)
+// router.route('/').get(authenticateUser, getUser);
+// router.route('/').patch(authenticateUser, updateUser);
 
-export default router
+// module.exports = router;

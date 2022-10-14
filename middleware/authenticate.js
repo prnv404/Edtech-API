@@ -1,6 +1,6 @@
-import CustomError from '../errors/index.js'
-import AsyncHandler from 'express-async-handler'
-import { isTokenValid } from '../utils/jwt.js'
+const  CustomError = require( '../errors/index.js')
+const  AsyncHandler = require( 'express-async-handler')
+const  { isTokenValid } = require( '../utils/jwt.js')
 
 const authenticateUser = async (req, res, next) => {
   const token = req.signedCookies.token
@@ -28,4 +28,4 @@ const authorizePermission = (...roles) => {
   }
 }
 
-export { authenticateUser, authorizePermission }
+module.exports= { authenticateUser, authorizePermission }
