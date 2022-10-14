@@ -32,6 +32,7 @@ const login = asyncHandler(async (req, res) => {
    const { phoneNumber, password } = req.body
 
    if (!phoneNumber || !password) {
+     
       throw new CustomError.BadRequestError('Please provide all values')
    }
 
@@ -45,7 +46,6 @@ const login = asyncHandler(async (req, res) => {
    if (!isMatch) {
       throw new CustomError.UnAuthorized('Incorrect Password')
    }
-
    const tokenUser = createTokenUser(user)
    attachCookieToResponse({ res, user: tokenUser })
 

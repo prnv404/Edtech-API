@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import asynchandler from 'express-async-handler'
 import { StatusCodes } from 'http-status-codes'
 import Course from '../models/course-model.js'
@@ -5,6 +6,9 @@ import CustomError from '../errors/index.js'
 
 const getSubjects = asynchandler(async (req, res) => {
    const { standerd } = req.user
+   if (!standerd) {
+      throw new CustomError.BadRequestError('Please provide standred')
+   }
    const subject = await Course.find({ standerd }).select('subject')
    //  console.log(subject)
 
@@ -13,19 +17,19 @@ const getSubjects = asynchandler(async (req, res) => {
 
 const getchapters = asynchandler(async (req, res) => {
    const sub = req.query.subject
-
-   const chapters = await Course.find({ subject: sub }).select('chapterNo chapterName')
+   const chapters = await Course.find({ subject: sub }).select(
+      'chapterNo chapterName'
+   )
 
    res.status(StatusCodes.OK).json(chapters)
 })
 
 const getAllVideo = asynchandler(async (req, res) => {
    const videoId = req.params.id
-   //  console.log(videoId)
+
    const video = await Course.findOne({
       _id: videoId,
    })
-
    res.status(StatusCodes.OK).json(video)
 })
 
@@ -50,4 +54,11 @@ const vidoeUpload = asynchandler(async (req, res, next) => {
    next()
 })
 
-export { getchapters, getAllVideo, createCourse, getSingleVideo, getSubjects, vidoeUpload }
+export {
+   getchapters,
+   getAllVideo,
+   createCourse,
+   getSingleVideo,
+   getSubjects,
+   vidoeUpload,
+}

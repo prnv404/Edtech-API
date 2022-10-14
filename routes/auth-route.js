@@ -1,8 +1,8 @@
 import express from 'express'
-const router = express.Router()
 
 import { signup, login, logout } from '../controllers/auth-controller.js'
-// import {auth} from '../middleware/authenticate.js'
+
+const router = express.Router()
 
 router.route('/signup').post(signup)
 router.route('/login').post(login)
