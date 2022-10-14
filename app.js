@@ -1,30 +1,30 @@
-import dotenv from 'dotenv'
-dotenv.config()
-import express from 'express'
-import morgan from 'morgan'
-import cookieParser from 'cookie-parser'
-import fileUpload from 'express-fileupload'
-const app = express()
+const dotenv = require('dotenv');
+dotenv.config();
+const express = require('express');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+const fileUpload = require('express-fileupload');
+const app = express();
 
-import notFound from './middleware/not-found.js'
-import errorhandler from './middleware/errorhandler.js'
+const notFound = require('./middleware/not-found');
+const errorhandler = require('./middleware/errorhandler');
 
-import authRouter from './routes/auth-route.js'
-import userRouter from './routes/user-route.js'
-import courseRouter from './routes/course-route.js'
-import subjectRouter from './routes/subject-route.js'
+const authRouter = require('./routes/auth-route');
+const userRouter = require('./routes/user-route');
+const courseRouter = require('./routes/course-route');
+const subjectRouter = require('./routes/subject-route');
 
-app.use(express.json())
-app.use(cookieParser(process.env.JWT_SECRET))
-app.use(morgan('dev'))
-app.use(fileUpload())
+app.use(express.json());
+app.use(cookieParser(process.env.JWT_SECRET));
+app.use(morgan('dev'));
+app.use(fileUpload());
 
-app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/user', userRouter)
-app.use('/api/v1/course', courseRouter)
-app.use('/api/v1/subject', subjectRouter)
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/user', userRouter);
+app.use('/api/v1/course', courseRouter);
+app.use('/api/v1/subject', subjectRouter);
 
-app.use(notFound)
-app.use(errorhandler)
+app.use(notFound);
+app.use(errorhandler);
 
-export default app
+module.exports = app;

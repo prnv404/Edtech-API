@@ -1,7 +1,7 @@
-import asynchandler from 'express-async-handler';
-import { StatusCodes } from 'http-status-codes';
-import Course from '../models/course-model.js';
-import CustomError from '../errors/index.js';
+const asynchandler = require('express-async-handler');
+const { StatusCodes } = require('http-status-codes');
+const Course = require('../models/course-model');
+const CustomError = require('../errors');
 
 const getSubjects = asynchandler(async (req, res) => {
   const { standerd } = req.user;
@@ -54,7 +54,7 @@ const vidoeUpload = asynchandler(async (req, res, next) => {
   next();
 });
 
-export {
+module.exports = {
   getchapters,
   getAllVideo,
   createCourse,

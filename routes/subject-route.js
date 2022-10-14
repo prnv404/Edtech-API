@@ -1,18 +1,17 @@
-import express from 'express'
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
-import {
-  getSubjects,
-  createSubjects,
-} from '../controllers/subject-controller.js'
-import {
+const {
+  getSubjects, createSubjects
+} = require('../controllers/subject-controller');
+const {
   authenticateUser,
   authorizePermission,
-} from '../middleware/authenticate.js'
+} = require('../middleware/authenticate');
 
 router
   .route('/')
   .get(authenticateUser, getSubjects)
-  .post(authenticateUser, authorizePermission('admin'), createSubjects)
+  .post(authenticateUser, authorizePermission('admin'), createSubjects);
 
-export default router
+module.exports = router;
