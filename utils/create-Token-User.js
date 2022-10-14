@@ -8,4 +8,4 @@ const createToken = (user) => {
   }
 }
 
-export default createToken
+module.exports =  createToken

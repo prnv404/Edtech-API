@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose');
 const subjectSchema = mongoose.Schema({
   subject: {
     type: String,
@@ -10,5 +10,5 @@ const subjectSchema = mongoose.Schema({
   },
 })
 
-const Subject = mongoose.model('Subject', subjectSchema)
-export default Subject
+module.exports= mongoose.model('Subject', subjectSchema)
+

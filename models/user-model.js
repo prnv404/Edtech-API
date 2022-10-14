@@ -1,7 +1,7 @@
-import mongoose from 'mongoose'
-import validator from 'validator'
-import expressAsyncHandler from 'express-async-handler'
-import bcrypt from 'bcrypt'
+const mongoose = require('mongoose');
+const  validator =require( 'validator')
+const  expressAsyncHandler =require( 'express-async-handler')
+const  bcrypt =require( 'bcrypt')
 
 const UserSchema = mongoose.Schema(
   {
@@ -58,6 +58,6 @@ UserSchema.methods.comparePassword = async function (candidatePassword) {
   return isMatch
 }
 
-const User = mongoose.model('User', UserSchema)
 
-export default User
+module.exports =  mongoose.model('User', UserSchema)
+ 

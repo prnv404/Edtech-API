@@ -1,5 +1,10 @@
-import { createJwt, isTokenValid, attachCookieToResponse } from './jwt.js'
+const { createJwt, isTokenValid, attachCookieToResponse } = require('./jwt');
 
-import createTokenUser from './create-Token-User.js'
+const createTokenUser = require('./create-Token-User');
 
-export { createJwt, isTokenValid, attachCookieToResponse, createTokenUser }
+module.exports = {
+  createJwt,
+  isTokenValid,
+  attachCookieToResponse,
+  createTokenUser,
+};
