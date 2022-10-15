@@ -32,11 +32,7 @@ const UserSchema = mongoose.Schema(
          minlength: 5,
          required: [true, 'please provide a password'],
       },
-<<<<<<< HEAD
-      verified: {
-=======
       isVerified: {
->>>>>>> master
          type: Boolean,
          required: true,
          default: false,

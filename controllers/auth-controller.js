@@ -44,6 +44,12 @@ const login = async (req, res) => {
       throw new CustomError.NotFound('No user found');
    }
 
+   const isMatch = await user.comparePassword(password);
+
+   if (isMatch === false) {
+      throw new CustomError.BadRequestError('Incorrect password');
+   }
+
    if (user.isVerified === false) {
       throw new CustomError.UnAuthorized('Please verify your account');
    }
