@@ -4,6 +4,7 @@ const createToken = (user) => {
       userId: user._id,
       isVerified: user.isVerified,
       standerd: user.standerd,
+      mobNumber: user.mobNumber,
    };
 };
 
