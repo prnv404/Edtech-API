@@ -11,7 +11,7 @@ const UserSchema = mongoose.Schema(
          minlength: 3,
          maxlength: 30,
       },
-      phoneNumber: {
+      mobNumber: {
          type: String,
          validate: {
             validator: validator.isMobilePhone,
@@ -32,7 +32,11 @@ const UserSchema = mongoose.Schema(
          minlength: 5,
          required: [true, 'please provide a password'],
       },
+<<<<<<< HEAD
       verified: {
+=======
+      isVerified: {
+>>>>>>> master
          type: Boolean,
          required: true,
          default: false,

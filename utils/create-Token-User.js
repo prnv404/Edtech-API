@@ -1,8 +1,8 @@
-const createToken = (user, verified) => {
+const createToken = (user) => {
    return {
       name: user.name,
       userId: user._id,
-      isVerified: verified.verified,
+      isVerified: user.isVerified,
       standerd: user.standerd,
    };
 };
