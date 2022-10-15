@@ -65,7 +65,6 @@ const updatePassword = async (req, res) => {
    res.status(StatusCodes.ACCEPTED).json({
       message: 'password updated succesfully',
    });
-   
 };
 
 /**
@@ -82,8 +81,21 @@ const getUser = async (req, res) => {
    res.status(StatusCodes.OK).json({ user });
 };
 
+/**
+ * It gets all the users from the database and returns them in the response
+ * @param req - The request object.
+ * @param res - The response object.
+ */
+
+const getAllUser = async (req, res) => {
+   const users = await User.find({}).select('name mobNumber standred');
+   res.status(StatusCodes.OK).json({ count: users.length, users });
+};
+
+
 module.exports = {
    updateUser,
    getUser,
    updatePassword,
+   getAllUser,
 };

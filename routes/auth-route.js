@@ -1,5 +1,4 @@
 const express = require('express');
-const { verify } = require('jsonwebtoken');
 const router = express.Router();
 
 const {
@@ -13,7 +12,7 @@ const {
 router.route('/signup').post(signup);
 router.route('/login').post(login);
 router.route('/logout').post(logout);
-router.route('/check').get(verifyNumber);
+router.route('/check').post(verifyNumber);
 router.route('/resend').get(resend);
 
 module.exports = router;
