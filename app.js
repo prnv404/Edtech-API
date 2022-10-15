@@ -12,7 +12,7 @@ const errorhandler = require('./middleware/errorhandler');
 
 const authRouter = require('./routes/auth-route');
 const userRouter = require('./routes/user-route');
-// const courseRouter = require('./routes/course-route');
+const courseRouter = require('./routes/course-route');
 // const subjectRouter = require('./routes/subject-route');
 
 app.use(express.json());
@@ -22,7 +22,7 @@ app.use(fileUpload());
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/user', userRouter);
-// app.use('/api/v1/course', courseRouter);
+app.use('/api/v1/course', courseRouter);
 // app.use('/api/v1/subject', subjectRouter);
 
 app.use(notFound);
