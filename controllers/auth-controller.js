@@ -1,97 +1,126 @@
-const CustomError = require('../errors');
 const User = require('../models/user-model');
-const Verify = require('../models/verification-model');
-
+const CustomError = require('../errors');
 const { StatusCodes } = require('http-status-codes');
-const { attachCookieToResponse, createTokenUser } = require('../utils');
-const { createOTP, verifyOTP } = require('../utils/create-otp');
+const { verifyOTP, createOTP } = require('../utils/create-otp');
+const { createTokenUser, attachCookieToResponse } = require('../utils');
 
 /**
  * It creates a new user in the database
  * @param req - The request object.
  * @param res - The response object.
  */
-const signup = async (req, res) => {
-   const { name, phone, password, standred } = req.body;
 
-   if (!name || !phone || !password || !standred) {
-      throw new CustomError.BadRequestError('please provide all values');
+const signup = async (req, res) => {
+    const { name, password, mobNumber, standred } = req.body;
+    
+   if (!name || !password || !mobNumber || !standred) {
+      throw new CustomError.BadRequestError('Please provide all values');
    }
+
    const isFirstAccount = (await User.countDocuments({})) === 0;
    const role = isFirstAccount ? 'admin' : 'user';
 
-   const user = await User.create({
-      name: name,
-      phoneNumber: phone,
-      standred: standred,
-      password: password,
-      role: role,
-   });
-   await createOTP({ phoneNumber: phone, channel: 'sms' });
+   await User.create({ name, password, mobNumber, standred, role });
+   await createOTP({ phoneNumber: mobNumber, channel: 'sms' });
+
    res.status(StatusCodes.OK).json({ message: 'done' });
 };
 
 /**
- * It takes in a phone number and password, checks if the user exists, compares the password, and sends
- * an OTP to the user
+ * It takes in a request and a response object, and returns a tokenUser object
  * @param req - The request object.
  * @param res - The response object.
  */
 const login = async (req, res) => {
-   const { password, phone } = req.body;
-
-   if (!password || !phone) {
+    const { password, mobNumber } = req.body;
+    
+   if (!password || !mobNumber) {
       throw new CustomError.BadRequestError('Please provide all values');
    }
-   const user = await User.findOne({ phoneNumber: phone });
+    
+    const user = await User.findOne({ mobNumber });
+    
    if (!user) {
       throw new CustomError.NotFound('No user found');
    }
-   if (!user.comparePassword(password)) {
-      throw new CustomError.UnAuthorized('Password incorrect');
+    
+   if (user.isVerified === false) {
+      throw new CustomError.UnAuthorized('Please verify your account');
    }
-   await createOTP({ phoneNumber: phone, channel: 'sms' });
-
-   res.status(StatusCodes.OK).json({ message: 'done' });
-};
-
-/**
- * It checks if the OTP is valid, if it is, it creates a verified document, creates a tokenUser,
- * attaches the tokenUser to the response and returns the tokenUser
- * @param req - The request object.
- * @param res - The response object
- */
-const check = async (req, res) => {
-   const { phone, OTP } = req.query;
-  
-   const isVerified = await verifyOTP({ phoneNumber: phone, code: OTP });
-   // const { valid } = isVerified;
-   if (isVerified.valid === false) {
-      throw new CustomError.BadRequestError('Incorrect OTP');
-   }
-   const user = await User.findOne({ phoneNumber: phone });
-   const verified = await Verify.create({ verified: true, userId: user._id });
-   const tokenUser = createTokenUser(user, verified);
-   attachCookieToResponse({ res, user: tokenUser, verified });
+    
+   const tokenUser = createTokenUser(user);
+    attachCookieToResponse({ res, user: tokenUser });
+    
    res.status(StatusCodes.OK).json({ tokenUser });
 };
+
 /**
- * It sets the cookie token to logout and sets the expiration date to the current date
+ * It verifies the OTP sent to the user's mobile number and then creates a JWT token for the user
  * @param req - The request object.
  * @param res - The response object.
  */
+const verifyNumber = async (req, res) => {
+    const { mobNumber, OTP } = req.body;
+    
+   if (!mobNumber || !OTP) {
+      throw new CustomError.BadRequestError('Please provide all values');
+   }
+    
+    const user = await User.findOne({ mobNumber });
+    
+    const verify = await verifyOTP({ phoneNumber: mobNumber, code: OTP });
+    
+    const { valid } = verify;
+    
+   if (!valid === true) {
+      throw new CustomError.BadRequestError('Incorrect OTP');
+   }
+    
+    user.isVerified = true;
+    
+    await user.save();
+    
+   const tokenUser = createTokenUser(user);
+    attachCookieToResponse({ res, user: tokenUser });
+    
+   res.status(StatusCodes.OK).json({ tokenUser });
+};
 
+
+/**
+ * It takes a mobile number from the request body, creates an OTP for that number and sends it to the
+ * user via SMS
+ * @param req - The request object.
+ * @param res - The response object.
+ */
+const resend = async (req, res) => {
+    const { mobNumber } = req.body;
+    
+    await createOTP({ phoneNumber: mobNumber, channel: 'sms' });
+    res.status(StatusCodes.OK).json({ message: 'OTP sended' });
+    
+};
+
+
+/**
+ * It sets the cookie to expire immediately, and then sends a response to the client
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 const logout = async (req, res) => {
    res.cookie('token', 'logout', {
       httpOnly: true,
       expires: new Date(Date.now()),
    });
-   res.status(StatusCodes.OK).json({ msg: 'logout succesfully' });
+    
+    res.status(StatusCodes.OK).json({ msg: 'logout succesfully' });
+    
 };
 
 module.exports = {
    signup,
    login,
-   check,
-   logout,
+   verifyNumber,
+    logout,
+   resend
 };
