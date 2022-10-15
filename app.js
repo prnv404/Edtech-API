@@ -11,7 +11,7 @@ const notFound = require('./middleware/not-found');
 const errorhandler = require('./middleware/errorhandler');
 
 const authRouter = require('./routes/auth-route');
-// const userRouter = require('./routes/user-route');
+const userRouter = require('./routes/user-route');
 // const courseRouter = require('./routes/course-route');
 // const subjectRouter = require('./routes/subject-route');
 
@@ -21,7 +21,7 @@ app.use(morgan('dev'));
 app.use(fileUpload());
 
 app.use('/api/v1/auth', authRouter);
-// app.use('/api/v1/user', userRouter);
+app.use('/api/v1/user', userRouter);
 // app.use('/api/v1/course', courseRouter);
 // app.use('/api/v1/subject', subjectRouter);
 

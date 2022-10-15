@@ -1,5 +1,4 @@
 const  CustomError = require( '../errors/index.js')
-const  AsyncHandler = require( 'express-async-handler')
 const  { isTokenValid } = require( '../utils/jwt.js')
 
 const authenticateUser = async (req, res, next) => {

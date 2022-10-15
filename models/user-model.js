@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
-const expressAsyncHandler = require('express-async-handler');
 const bcrypt = require('bcrypt');
 
 const UserSchema = mongoose.Schema(
@@ -32,6 +31,11 @@ const UserSchema = mongoose.Schema(
          trim: true,
          minlength: 5,
          required: [true, 'please provide a password'],
+      },
+      verified: {
+         type: Boolean,
+         required: true,
+         default: false,
       },
       role: {
          type: String,
