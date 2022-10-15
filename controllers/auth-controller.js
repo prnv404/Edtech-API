@@ -62,17 +62,22 @@ const login = async (req, res) => {
  * @param res - The response object
  */
 const check = async (req, res) => {
-   const { phone, OTP } = req.query;
-  
+   const { phone, OTP, firstTime } = req.query;
+
    const isVerified = await verifyOTP({ phoneNumber: phone, code: OTP });
    // const { valid } = isVerified;
    if (isVerified.valid === false) {
       throw new CustomError.BadRequestError('Incorrect OTP');
    }
    const user = await User.findOne({ phoneNumber: phone });
-   const verified = await Verify.create({ verified: true, userId: user._id });
-   const tokenUser = createTokenUser(user, verified);
-   attachCookieToResponse({ res, user: tokenUser, verified });
+
+   if (!firstTime === false) {
+      user.verified = true;
+   }
+
+   // const verified = await Verify.create({ verified: true, userId: user._id });
+   const tokenUser = createTokenUser(user);
+   attachCookieToResponse({ res, user: tokenUser });
    res.status(StatusCodes.OK).json({ tokenUser });
 };
 /**
