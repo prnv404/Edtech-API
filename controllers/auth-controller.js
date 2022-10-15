@@ -1,7 +1,7 @@
 const User = require('../models/user-model');
 const CustomError = require('../errors');
 const { StatusCodes } = require('http-status-codes');
-const { verifyOTP, createOTP } = require('../utils/create-otp');
+const { verifyOTP, createOTP } = require('../utils/OTP');
 const { createTokenUser, attachCookieToResponse } = require('../utils');
 
 /**

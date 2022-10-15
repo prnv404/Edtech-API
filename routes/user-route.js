@@ -9,10 +9,14 @@ const {
    updateUser,
    getUser,
    updatePassword,
+   getAllUser,
 } = require('../controllers/user-controller');
 
 router.route('/').get(authenticateUser, getUser);
 router.route('/').patch(authenticateUser, updateUser);
 router.route('/updatePassword').patch(authenticateUser, updatePassword);
+router
+   .route('/getAllUser')
+   .get(authenticateUser, authorizePermission('admin'), getAllUser);
 
 module.exports = router;

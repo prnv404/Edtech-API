@@ -13,8 +13,8 @@ console.log(data);
 const start = async (url) => {
   try {
     await connectDB(url);
-    // await User.deleteMany({})
-    await User.insertMany({ data });
+    await User.deleteMany({})
+    // await User.insertMany({ data });
     process.exit(0);
   } catch (error) {
     console.log(error);
