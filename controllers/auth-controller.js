@@ -62,8 +62,8 @@ const login = async (req, res) => {
  * @param res - The response object
  */
 const check = async (req, res) => {
-   const { phone, OTP } = req.body;
-
+   const { phone, OTP } = req.query;
+  
    const isVerified = await verifyOTP({ phoneNumber: phone, code: OTP });
    // const { valid } = isVerified;
    if (isVerified.valid === false) {
