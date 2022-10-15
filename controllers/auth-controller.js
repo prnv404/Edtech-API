@@ -54,13 +54,31 @@ const login = asyncHandler(async (req, res) => {
     res.status(StatusCodes.OK);
 });
 
-const otp = asyncHandler(async (req, res) => {
-    const { mobileNumber, otp } = req.query;
-    verifyOTP({ res, mobileNO: mobileNumber, code: otp });
-});
-
-/* This is a function that is called when a user logs out. It takes in the request and response
-objects. It then sets the cookie to logout. It then sends a response with a messazge. */
+/**
+ * It checks if the OTP is valid, if it is, it creates a verified document, creates a tokenUser,
+ * attaches the tokenUser to the response and returns the tokenUser
+ * @param req - The request object.
+ * @param res - The response object
+ */
+const check = async (req, res) => {
+   const { phone, OTP } = req.query;
+  
+   const isVerified = await verifyOTP({ phoneNumber: phone, code: OTP });
+   // const { valid } = isVerified;
+   if (isVerified.valid === false) {
+      throw new CustomError.BadRequestError('Incorrect OTP');
+   }
+   const user = await User.findOne({ phoneNumber: phone });
+   const verified = await Verify.create({ verified: true, userId: user._id });
+   const tokenUser = createTokenUser(user, verified);
+   attachCookieToResponse({ res, user: tokenUser, verified });
+   res.status(StatusCodes.OK).json({ tokenUser });
+};
+/**
+ * It sets the cookie token to logout and sets the expiration date to the current date
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 
 const logout = asyncHandler(async (req, res) => {
     res.cookie('token', 'logout', {
