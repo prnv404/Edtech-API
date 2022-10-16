@@ -95,7 +95,7 @@ const getAllVideos = async (req, res) => {
  */
 
 const getSingleVideo = async (req, res) => {
-   const  videoId  = req.params.id;
+   const videoId = req.params.id;
 
    if (!videoId) {
       throw new CustomError.BadRequestError('No video Id');
@@ -117,7 +117,7 @@ const getSingleVideo = async (req, res) => {
  * @param res - The response object.
  */
 
-const createVideo = async (req, res) => {
+const uploadVideo = async (req, res) => {
    const video = await Video.create(req.body);
 
    res.status(StatusCodes.CREATED).json({ video });
@@ -128,7 +128,7 @@ module.exports = {
    getChapters,
    getAllVideos,
    getSingleVideo,
-   createVideo,
    createSubject,
    createChapters,
+   uploadVideo,
 };

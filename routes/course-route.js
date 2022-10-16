@@ -5,7 +5,7 @@ const {
    authenticateUser,
    authorizePermission,
 } = require('../middleware/authenticate');
-
+const uplaodVideoApi = require('../middleware/upload-video');
 const {
    getSubject,
    getChapters,
@@ -13,7 +13,7 @@ const {
    getSingleVideo,
    createChapters,
    createSubject,
-   createVideo,
+   uploadVideo,
 } = require('../controllers/course-controller');
 
 router
@@ -27,8 +27,11 @@ router
 router.route('/videos').get(authenticateUser, getAllVideos);
 router.route('/videos/:id').get(authenticateUser, getSingleVideo);
 
-router
-   .route('/createVideo')
-   .post(authenticateUser, authorizePermission('admin'), createVideo);
+router.route('/uploadvideo').post(
+   authenticateUser,
+   authorizePermission('admin'),
+   // uplaodVideoApi,
+   uploadVideo
+);
 
 module.exports = router;

@@ -31,6 +31,7 @@ const signup = async (req, res) => {
  * @param req - The request object.
  * @param res - The response object.
  */
+
 const login = async (req, res) => {
    const { password, mobNumber } = req.body;
 
@@ -65,6 +66,7 @@ const login = async (req, res) => {
  * @param req - The request object.
  * @param res - The response object.
  */
+
 const verifyNumber = async (req, res) => {
    const { mobNumber, OTP } = req.body;
 
@@ -98,6 +100,7 @@ const verifyNumber = async (req, res) => {
  * @param req - The request object.
  * @param res - The response object.
  */
+
 const resend = async (req, res) => {
    const { mobNumber } = req.body;
    if (!mobNumber) {
@@ -112,6 +115,7 @@ const resend = async (req, res) => {
  * @param req - The request object.
  * @param res - The response object.
  */
+
 const logout = async (req, res) => {
    res.cookie('token', 'logout', {
       httpOnly: true,
