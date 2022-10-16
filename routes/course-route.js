@@ -1,37 +1,33 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
 const {
    authenticateUser,
    authorizePermission,
-} = require('../middleware/authenticate');
-const uplaodVideoApi = require('../middleware/upload-video');
+} = require('../middleware/authenticate')
+const {
+   getAllVideos,
+   getSingleVideo,
+   createVideo,
+} = require('../controllers/video-controller')
 const {
    getSubject,
    getChapters,
-   getAllVideos,
-   getSingleVideo,
    createChapters,
    createSubject,
-   uploadVideo,
-} = require('../controllers/course-controller');
+} = require('../controllers/course-controller')
 
 router
    .route('/subjects')
    .get(authenticateUser, getSubject)
-   .post(authenticateUser, authorizePermission('admin'), createSubject);
+   .post(authenticateUser, authorizePermission('admin'), createSubject)
 router
    .route('/chapters')
    .get(authenticateUser, getChapters)
-   .post(authenticateUser, authorizePermission('admin'), createChapters);
-router.route('/videos').get(authenticateUser, getAllVideos);
-router.route('/videos/:id').get(authenticateUser, getSingleVideo);
-
-router.route('/uploadvideo').post(
-   authenticateUser,
-   authorizePermission('admin'),
-   // uplaodVideoApi,
-   uploadVideo
-);
-
-module.exports = router;
+   .post(authenticateUser, authorizePermission('admin'), createChapters)
+router.route('/video').get(authenticateUser, getAllVideos)
+router.route('/video/:id').get(authenticateUser, getSingleVideo)
+router
+   .route('/createVideo')
+   .post(authenticateUser, authorizePermission('admin'), createVideo)
+module.exports = router
