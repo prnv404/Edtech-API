@@ -11,6 +11,11 @@ var instance = new Razorpay({
    key_secret: process.env.KEY_SECRET,
 })
 
+/**
+ * It creates an order in the database and then creates a payment order in Razorpay
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 const createOrder = async (req, res) => {
    const { price, standred } = req.body
    if (!price || !standred) {
@@ -44,5 +49,5 @@ const createOrder = async (req, res) => {
 
 module.exports = {
    createOrder,
-   createOrder,
+   
 }
