@@ -14,8 +14,9 @@ const errorhandler = require('./middleware/errorhandler')
 
 const authRouter = require('./routes/auth-route')
 const userRouter = require('./routes/user-route')
-const courseRouter = require('./routes/chapter-subject-route')
+const subjectRoute = require('./routes/chapter-subject-route')
 const videoRouter = require('./routes/video-route')
+const courseRouter = require('./routes/course-route')
 
 app.use(express.json())
 app.use(cookieParser(process.env.JWT_SECRET))
@@ -24,8 +25,9 @@ app.use(fileUpload())
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/user', userRouter)
-app.use('/api/v1/course', courseRouter)
+app.use('/api/v1/subject', subjectRoute)
 app.use('/api/v1/video', videoRouter)
+app.use('/api/v1/course', courseRouter)
 
 app.use(notFound)
 app.use(errorhandler)
