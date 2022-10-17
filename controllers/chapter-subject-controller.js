@@ -1,10 +1,7 @@
-const CustomError = require('../errors');
-const Subject = require('../models/subject-model');
-const Chapter = require('../models/chapter-model');
-const Video = require('../models/video-model');
-const { StatusCodes } = require('http-status-codes');
-
-
+const CustomError = require('../errors')
+const Subject = require('../models/subject-model')
+const Chapter = require('../models/chapter-model')
+const { StatusCodes } = require('http-status-codes')
 
 /**
  * It creates a subject and returns it
@@ -14,9 +11,9 @@ const { StatusCodes } = require('http-status-codes');
  */
 
 const createSubject = async (req, res) => {
-   const subject = await Subject.create(req.body);
-   res.status(StatusCodes.CREATED).json({ subject });
-};
+   const subject = await Subject.create(req.body)
+   res.status(StatusCodes.CREATED).json({ subject })
+}
 
 /**
  * It fetches the subjects of the standred of the user
@@ -25,11 +22,11 @@ const createSubject = async (req, res) => {
  */
 
 const getSubject = async (req, res) => {
-   const { standred } = req.user;
+   const { standred } = req.user
 
-   const subjects = await Subject.find({ standred }).select('subject');
-   res.status(StatusCodes.OK).json({ subjects });
-};
+   const subjects = await Subject.find({ standred }).select('subject')
+   res.status(StatusCodes.OK).json({ subjects })
+}
 
 /**
  * It creates a new chapter in the database
@@ -38,10 +35,9 @@ const getSubject = async (req, res) => {
  */
 
 const createChapters = async (req, res) => {
-   const chapters = await Chapter.create(req.body);
-
-   res.status(StatusCodes.OK).json({ chapters });
-};
+   const chapters = await Chapter.create(req.body)
+   res.status(StatusCodes.OK).json({ chapters })
+}
 
 /**
  * It fetches all the chapters of a particular subject
@@ -50,20 +46,20 @@ const createChapters = async (req, res) => {
  */
 
 const getChapters = async (req, res) => {
-   const { subject } = req.query;
+   const { subject } = req.query
 
    if (!subject) {
-      throw new CustomError.BadRequestError('No subject');
+      throw new CustomError.BadRequestError('No subject')
    }
 
-   const chapters = await Chapter.find({ subject });
+   const chapters = await Chapter.find({ subject })
 
-   res.status(StatusCodes.OK).json({ chapters });
-};
+   res.status(StatusCodes.OK).json({ chapters })
+}
 
 module.exports = {
    getSubject,
    getChapters,
    createSubject,
    createChapters,
-};
+}
