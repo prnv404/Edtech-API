@@ -1,20 +1,39 @@
 const Order = require('../models/order-model')
 const CustomError = require('../errors')
 const { StatusCodes } = require('http-status-codes')
+const Course = require('../models/course-model')
 
 const Razorpay = require('razorpay')
+const { findOne } = require('../models/order-model')
 
 var instance = new Razorpay({
    key_id: process.env.KEY_ID,
    key_secret: process.env.KEY_SECRET,
 })
 
-const createOrderId = async (req, res) => {
-   const { amount } = req.body
+const createOrder = async (req, res) => {
+   const { price, standred } = req.body
+   if (!price || !standred) {
+      throw new CustomError.BadRequestError('Please provide all values')
+   }
+   const course = await findOne({ standred })
+   if (course.pirce !== price) {
+      throw new CustomError.BadRequestError('Price dosent match')
+   }
+
+   const order = {
+      price: price,
+      course: course,
+      user: req.user.userId,
+   }
+
+   const orderResult = await Order.create(order)
+   price.toString()
+
    const options = {
-      amount: amount, // amount in the smallest currency unit
+      amount: price * 100, // amount in the smallest currency unit
       currency: 'INR',
-      receipt: 'order_rcptid_11',
+      receipt: req.user.userId,
    }
    instance.orders.create(options, function (err, order) {
       if (err) console.log(err)
@@ -23,11 +42,7 @@ const createOrderId = async (req, res) => {
    })
 }
 
-const createOrder = async (req, res) => {
-   const { price, course } = req.body
-}
-
 module.exports = {
-   createOrderId,
+   createOrder,
    createOrder,
 }

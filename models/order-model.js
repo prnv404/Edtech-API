@@ -19,10 +19,6 @@ const orderSchema = mongoose.Schema(
          ref: 'User',
          required: true,
       },
-      clientSecret: {
-         type: String,
-         required: true,
-      },
       paymentIntentId: {
          type: String,
       },
