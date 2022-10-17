@@ -1,5 +1,5 @@
-const CustomError = require('../errors/index.js');
-const { isTokenValid } = require('../utils/jwt.js');
+const CustomError = require('../errors/index.js')
+const { isTokenValid } = require('../utils/jwt.js')
 
 /**
  * It checks if the user is logged in and if the user is verified
@@ -9,23 +9,23 @@ const { isTokenValid } = require('../utils/jwt.js');
  * function in the stack.
  */
 const authenticateUser = async (req, res, next) => {
-   const token = req.signedCookies.token;
+   const token = req.signedCookies.token
    if (!token) {
-      throw new CustomError.unAutenticated('please signup or login');
+      throw new CustomError.unAutenticated('please signup or login')
    }
    try {
-      const payload = isTokenValid({ token });
-      const { isVerified } = payload;
+      const payload = isTokenValid({ token })
+      const { isVerified } = payload
       if (isVerified === false) {
-         throw new CustomError.unAutenticated('You are not verified');
+         throw new CustomError.unAutenticated('You are not verified')
       }
-      req.user = payload;
-      next();
+      req.user = payload
+      next()
    } catch (error) {
-      console.log(error);
-      throw new CustomError.unAutenticated('Token error');
+      console.log(error)
+      throw new CustomError.unAutenticated('Token error')
    }
-};
+}
 
 /**
  * It takes in a list of roles, and returns a function that takes in a request, response, and next
@@ -39,10 +39,10 @@ const authorizePermission = (...roles) => {
       if (!roles.includes(req.user.role)) {
          throw new CustomError.unAutenticated(
             'You have no permission to access to this route'
-         );
+         )
       }
-      next();
-   };
-};
+      next()
+   }
+}
 
-module.exports = { authenticateUser, authorizePermission };
+module.exports = { authenticateUser, authorizePermission }
