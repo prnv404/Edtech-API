@@ -7,7 +7,6 @@ const app = express()
 
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
-const fileUpload = require('express-fileupload')
 
 
 
@@ -19,12 +18,14 @@ const userRouter = require('./routes/user-route')
 const subjectRoute = require('./routes/chapter-subject-route')
 const videoRouter = require('./routes/video-route')
 const courseRouter = require('./routes/course-route')
-const paymentRouter = require('./routes/order-route')
+const paymentRouter = require('./routes/payment-route')
 
 app.use(express.json())
+
 app.use(cookieParser(process.env.JWT_SECRET))
 app.use(morgan('dev'))
-app.use(fileUpload())
+
+app.use(express.static('./public'))
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/user', userRouter)
