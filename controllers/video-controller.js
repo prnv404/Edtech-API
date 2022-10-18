@@ -18,6 +18,7 @@ let client = new Vimeo(
  */
 
 const getSingleVideo = async (req, res) => {
+   
    const videoId = req.params.id
    client.request(
       {
