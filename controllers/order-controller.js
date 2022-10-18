@@ -49,7 +49,7 @@ const createOrder = async (req, res) => {
          currency: 'INR',
          receipt: receiptId,
       })
-      // console.log(order);
+     
       res.status(StatusCodes.CREATED).json({
          success: true,
          order,
