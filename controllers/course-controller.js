@@ -11,4 +11,9 @@ const createCourse = async (req, res) => {
    res.status(StatusCodes.CREATED).json(course)
 }
 
-module.exports = createCourse
+const getAllCourse = async (req, res) => {
+   const course = await Course.find({})
+   res.status(StatusCodes.CREATED).json(course)
+}
+
+module.exports = { createCourse, getAllCourse }
