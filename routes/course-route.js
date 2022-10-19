@@ -6,10 +6,14 @@ const {
    authorizePermission,
 } = require('../middleware/authenticate')
 
-const createCourse = require('../controllers/course-controller')
+const {
+   createCourse,
+   getAllCourse,
+} = require('../controllers/course-controller')
 
 router
    .route('/')
    .post(authenticateUser, authorizePermission('admin'), createCourse)
+   .get(authenticateUser, getAllCourse)
 
 module.exports = router

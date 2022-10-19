@@ -35,7 +35,7 @@ const createOrder = async (req, res) => {
       user: req.user.userId,
    }
 
-   let receiptId = Math.random() * 100
+   let receiptId = Math.random() * 10000
 
    receiptId.toString()
 
