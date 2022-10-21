@@ -6,7 +6,7 @@ const {
    authorizePermission,
 } = require('../middleware/authenticate')
 
-const { createOrder } = require('../controllers/order-controller')
+const { createOrder } = require('../controllers/payment-controller')
 
 router.route('/').post(authenticateUser, createOrder)
 
