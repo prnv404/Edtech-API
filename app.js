@@ -9,7 +9,6 @@ const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 
 
-
 const notFound = require('./middleware/not-found')
 const errorhandler = require('./middleware/errorhandler')
 
@@ -23,6 +22,7 @@ const paymentRouter = require('./routes/payment-route')
 app.use(express.json())
 
 app.use(cookieParser(process.env.JWT_SECRET))
+
 app.use(morgan('dev'))
 
 app.use(express.static('./public'))

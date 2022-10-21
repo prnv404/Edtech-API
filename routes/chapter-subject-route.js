@@ -14,7 +14,7 @@ const {
 } = require('../controllers/chapter-subject-controller')
 
 router
-   .route('/subjects')
+   .route('/')
    .get(authenticateUser, getSubject)
    .post(authenticateUser, authorizePermission('admin'), createSubject)
 router
