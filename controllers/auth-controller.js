@@ -87,7 +87,7 @@ const verifyNumber = async (req, res) => {
    user.isVerified = true;
 
    await user.save();
-
+  
    const tokenUser = createTokenUser(user);
    attachCookieToResponse({ res, user: tokenUser });
 

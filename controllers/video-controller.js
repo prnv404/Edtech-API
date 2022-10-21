@@ -10,6 +10,7 @@ let client = new Vimeo(
    process.env.PERSONAL_ACCESS_TOKEN
 )
 
+
 /**
  * It takes a video id from the request params, makes a request to the Vimeo API, and returns the video
  * data in the response
