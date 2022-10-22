@@ -3,12 +3,12 @@ const CustomError = require('../errors')
 const { StatusCodes } = require('http-status-codes')
 
 
-let Vimeo = require('vimeo').Vimeo
-let client = new Vimeo(
-   process.env.CLIENT_IDENTIFIER,
-   process.env.CLIENT_SECRET,
-   process.env.PERSONAL_ACCESS_TOKEN
-)
+// let Vimeo = require('vimeo').Vimeo
+// let client = new Vimeo(
+//    process.env.CLIENT_IDENTIFIER,
+//    process.env.CLIENT_SECRET,
+//    process.env.PERSONAL_ACCESS_TOKEN
+// )
 
 
 /**
@@ -20,25 +20,7 @@ let client = new Vimeo(
 
 const getSingleVideo = async (req, res) => {
    
-   const videoId = req.params.id
-   client.request(
-      {
-         method: 'GET',
-         path: `/videos/${videoId}`,
-      },
-      function (error, body, status_code, headers) {
-         if (error) {
-            console.log(error)
-         }
-         const data = {
-            name: body.name,
-            url: body.uri,
-            duration: body.duration,
-            description: body.description,
-         }
-         res.status(StatusCodes.OK).json({ data })
-      }
-   )
+   
 }
 
 /**
@@ -48,14 +30,7 @@ const getSingleVideo = async (req, res) => {
  */
 
 const getAllVideos = async (req, res) => {
-   const { chapter } = req.query
-   if (!chapter) {
-      throw new CustomError.BadRequestError('Please provide chapter')
-   }
-   const videos = await Video.find({ chapter }).select(
-      'title positionOfVideo videoPath discription'
-   )
-   res.status(StatusCodes.OK).json({ videos })
+  
 }
 
 /**
@@ -66,8 +41,7 @@ const getAllVideos = async (req, res) => {
  */
 
 const createVideo = async (req, res) => {
-   const video = await Video.create(req.body)
-   res.status(StatusCodes.CREATED).json({ video })
+  
 }
 
 module.exports = {
