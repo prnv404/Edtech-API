@@ -2,14 +2,12 @@ const Video = require('../models/video-model')
 const CustomError = require('../errors')
 const { StatusCodes } = require('http-status-codes')
 
-
 // let Vimeo = require('vimeo').Vimeo
 // let client = new Vimeo(
 //    process.env.CLIENT_IDENTIFIER,
 //    process.env.CLIENT_SECRET,
 //    process.env.PERSONAL_ACCESS_TOKEN
 // )
-
 
 /**
  * It takes a video id from the request params, makes a request to the Vimeo API, and returns the video
@@ -19,8 +17,10 @@ const { StatusCodes } = require('http-status-codes')
  */
 
 const getSingleVideo = async (req, res) => {
-   
-   
+   // console.log(req.video.Body)
+   console.log(JSON.stringify(req.video.Body))
+   // console.log(req.video.VersionId)
+   res.send('hello')
 }
 
 /**
@@ -29,9 +29,7 @@ const getSingleVideo = async (req, res) => {
  * @param res - The response object.
  */
 
-const getAllVideos = async (req, res) => {
-  
-}
+const getAllVideos = async (req, res) => {}
 
 /**
  * It creates a video and returns the video in the response
@@ -41,7 +39,8 @@ const getAllVideos = async (req, res) => {
  */
 
 const createVideo = async (req, res) => {
-  
+   // console.log(req.aws)
+   res.send('hello')
 }
 
 module.exports = {

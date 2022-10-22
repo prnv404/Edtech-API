@@ -9,6 +9,7 @@ const app = express()
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
+const fileUpload = require('express-fileupload')
 
 const notFound = require('./middleware/not-found')
 const errorhandler = require('./middleware/errorhandler')
@@ -26,6 +27,7 @@ const paymentRouter = require('./routes/payment-route')
 //       highWaterMark: 2 * 1024 * 1024, // Set 2MiB buffer
 //    })
 // ) // Insert the busboy middle-ware
+app.use(fileUpload())
 app.use(express.json())
 app.use(cors())
 app.use(cookieParser(process.env.JWT_SECRET))

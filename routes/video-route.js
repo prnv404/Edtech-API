@@ -9,16 +9,22 @@ const {
 const {
    getAllVideos,
    getSingleVideo,
+   createVideo,
 } = require('../controllers/video-controller')
 
-const upload = require('../utils/upload')
+const { upload, getItBack } = require('../utils/upload')
 
 router.route('/').get(authenticateUser, getAllVideos)
 router
    .route('/:id')
-   .get(authenticateUser, authorizePermission('admin'), getSingleVideo)
+   .get(
+      authenticateUser,
+      authorizePermission('admin'),
+      getItBack,
+      getSingleVideo
+   )
 router
    .route('/upload')
-   .post(authenticateUser, authorizePermission('admin'), upload)
+   .post(authenticateUser, authorizePermission('admin'), upload, createVideo)
 
 module.exports = router

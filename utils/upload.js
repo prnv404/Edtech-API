@@ -6,17 +6,37 @@ const AWS = require('aws-sdk')
 const s3 = new AWS.S3()
 
 const upload = async (req, res, next) => {
-   await s3
+   console.log(req.body)
+   const result = await s3
       .putObject({
-         Body: 'hello world',
+         Body: req.body.file,
          Bucket: 'cyclic-drab-teal-caiman-hose-ap-southeast-2',
-         Key: 'uploads/my_file.txt',
+         Key: 'uploads/my_file.mp4',
       })
       .promise()
+      .then((data) => {
+         console.log(data)
+      })
+   req.aws = result
    next()
 }
 
-module.exports = upload
+const getItBack = async (req, res, next) => {
+   let my_file = await s3
+      .getObject({
+         Bucket: 'cyclic-drab-teal-caiman-hose-ap-southeast-2',
+         Key: 'uploads/my_file.mp4',
+      })
+      .promise()
+      .then((data) => {
+         req.video = data
+         //  console.log(data)
+      })
+
+   next()
+}
+
+module.exports = { upload, getItBack }
 
 // const uploadPath = path.join(__dirname, 'upload/') // Register the upload path
 // fs.ensureDir(uploadPath) // Make sure that he upload path exits
