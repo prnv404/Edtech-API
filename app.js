@@ -2,7 +2,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 require('express-async-errors')
 
-// const busboy = require('connect-busboy')
+
 const express = require('express')
 const app = express()
 
@@ -16,16 +16,11 @@ const errorhandler = require('./middleware/errorhandler')
 const authRouter = require('./routes/auth-route')
 const userRouter = require('./routes/user-route')
 const courseRouter = require('./routes/course-route')
-// const videoRouter = require('./routes/video-route')
+
 const planRouter = require('./routes/plan-route')
 const paymentRouter = require('./routes/payment-route')
 
-// Initialize the express web server
-// app.use(
-//    busboy({
-//       highWaterMark: 2 * 1024 * 1024, // Set 2MiB buffer
-//    })
-// ) // Insert the busboy middle-ware
+
 app.use(express.json())
 app.use(cors())
 app.use(cookieParser(process.env.JWT_SECRET))
