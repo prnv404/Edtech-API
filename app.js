@@ -13,9 +13,9 @@ const errorhandler = require('./middleware/errorhandler')
 
 const authRouter = require('./routes/auth-route')
 const userRouter = require('./routes/user-route')
-const subjectRoute = require('./routes/chapter-subject-route')
-const videoRouter = require('./routes/video-route')
 const courseRouter = require('./routes/course-route')
+// const videoRouter = require('./routes/video-route')
+const planRouter = require('./routes/plan-route')
 const paymentRouter = require('./routes/payment-route')
 
 app.use(express.json())
@@ -27,9 +27,8 @@ app.use(express.static('./public'))
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/user', userRouter)
-app.use('/api/v1/subject', subjectRoute)
-app.use('/api/v1/video', videoRouter)
-app.use('/api/v1/course', courseRouter)
+app.use('/api/v1/subject', courseRouter)
+app.use('/api/v1/plan', planRouter)
 app.use('/api/v1/payment', paymentRouter)
 
 app.use(notFound)

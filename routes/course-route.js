@@ -6,10 +6,34 @@ const {
    authorizePermission,
 } = require('../middleware/authenticate')
 
-const createCourse = require('../controllers/course-controller')
+const {
+   getSubject,
+   getChapters,
+   createChapters,
+   createSubject,
+} = require('../controllers/chapter-subject-controller')
+
+const {
+   getAllVideos,
+   getSingleVideo,
+   createVideo,
+} = require('../controllers/video-controller')
 
 router
-   .route('/')
-   .post(authenticateUser, authorizePermission('admin'), createCourse)
+   .route('/subjects')
+   .get(authenticateUser, getSubject)
+   .post(authenticateUser, authorizePermission('admin'), createSubject)
+router
+   .route('/chapters')
+   .get(authenticateUser, getChapters)
+   .post(authenticateUser, authorizePermission('admin'), createChapters)
+
+router.route('/videos').get(authenticateUser, getAllVideos)
+router
+   .route('videos/:id')
+   .get(authenticateUser, authorizePermission('admin'), getSingleVideo)
+router
+   .route('/createVideo')
+   .post(authenticateUser, authorizePermission('admin'), createVideo)
 
 module.exports = router
