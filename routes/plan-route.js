@@ -6,7 +6,7 @@ const {
    authorizePermission,
 } = require('../middleware/authenticate')
 
-const createCourse = require('../controllers/course-controller')
+const {createCourse} = require('../controllers/course-controller')
 
 router
    .route('/')
