@@ -17,6 +17,7 @@ const { StatusCodes } = require('http-status-codes')
  */
 
 const getSingleVideo = async (req, res) => {
+   
    // console.log(req.video.Body)
    console.log(JSON.stringify(req.video.Body))
    // console.log(req.video.VersionId)

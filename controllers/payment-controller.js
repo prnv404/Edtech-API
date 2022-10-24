@@ -60,6 +60,11 @@ const createOrder = async (req, res) => {
    }
 }
 
+
+const verifyPayment = async (req, res) => {
+   res.send('hello')
+}
+
 module.exports = {
    createOrder,
 }
