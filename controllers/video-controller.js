@@ -9,6 +9,16 @@ let client = new Vimeo(
    process.env.PERSONAL_ACCESS_TOKEN
 )
 
+/* 
+TODO: 
+   
+   1.GET ALL VIDEO CONTROLLER
+   2.CREATE VIDEO CONTROLLER
+
+*/
+
+
+
 /**
  * It gets all the videos of a particular chapter
  * @param req - The request object.
@@ -16,6 +26,7 @@ let client = new Vimeo(
  */
 
 const getAllVideos = async (req, res) => { 
+   res.send('hello')
 
 }
 
@@ -43,13 +54,10 @@ const createVideo = async (req, res) => {
 }
 
 
-const uploadVideo = async (req, res) => {
-   res.send('hello')
-}
 
 module.exports = {
    getAllVideos,
    getSingleVideo,
    createVideo,
-   uploadVideo
+   
 }

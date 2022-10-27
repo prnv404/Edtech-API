@@ -8,7 +8,7 @@ const app = express()
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
-const fileUpload = require('express-fileupload')
+const busboy = require('connect-busboy') // Middleware to handle the file upload https://github.com/mscdex/connect-busboy
 
 const notFound = require('./middleware/not-found')
 const errorhandler = require('./middleware/errorhandler')
@@ -20,6 +20,13 @@ const planRouter = require('./routes/plan-route')
 const paymentRouter = require('./routes/payment-route')
 const videoRouter = require('./routes/video-route')
 
+app.use(
+   busboy({
+      highWaterMark: 2 * 1024 * 1024, // Set 2MiB buffer
+   })
+)
+
+
 app.use(express.json())
 app.use(cors())
 app.use(cookieParser(process.env.JWT_SECRET))
@@ -30,13 +37,13 @@ if (!process.env.NODE_ENV === 'prod') {
 
 app.use(express.static('./public'))
 
+
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/user', userRouter)
 app.use('/api/v1/subject', courseRouter)
 app.use('/api/v1/plan', planRouter)
 app.use('/api/v1/payment', paymentRouter)
 app.use('/api/v1/video', videoRouter)
-
 
 app.use(notFound)
 app.use(errorhandler)

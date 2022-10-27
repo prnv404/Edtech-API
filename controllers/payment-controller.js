@@ -10,6 +10,8 @@ var instance = new Razorpay({
    key_secret: process.env.KEY_SECRET,
 })
 
+
+// TODO: PAYMENT VERIFICATION VIA WEBHOOKS
 /**
  * It creates an order in the database and then creates a payment order in Razorpay
  * @param req - The request object.
