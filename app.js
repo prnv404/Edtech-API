@@ -45,6 +45,7 @@ app.use('/api/v1/plan', planRouter)
 app.use('/api/v1/payment', paymentRouter)
 app.use('/api/v1/video', videoRouter)
 
+
 app.use(notFound)
 app.use(errorhandler)
 
