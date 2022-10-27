@@ -10,8 +10,6 @@ let client = new Vimeo(
 )
 
 /**
-
-/**
  * It gets all the videos of a particular chapter
  * @param req - The request object.
  * @param res - The response object.
