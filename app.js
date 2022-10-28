@@ -29,12 +29,14 @@ if (process.env.NODE_ENV === 'Dev') {
 
 app.use(express.static('./public'))
 
+
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/user', userRouter)
 app.use('/api/v1/subject', courseRouter)
 app.use('/api/v1/plan', planRouter)
-app.use('/api/v1/payment', paymentRouter)
+app.use('/api/v1payment', paymentRouter)
 app.use('/api/v1/video', videoRouter)
+
 
 app.use(notFound)
 app.use(errorhandler)
