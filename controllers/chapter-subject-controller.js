@@ -12,8 +12,10 @@ const { StatusCodes } = require('http-status-codes')
 
 const createSubject = async (req, res) => {
    const subject = await Subject.create(req.body)
+
    res.status(StatusCodes.CREATED).json({ subject })
 }
+
 
 /**
  * It fetches the subjects of the standred of the user
@@ -21,11 +23,15 @@ const createSubject = async (req, res) => {
  * @param res - The response object.
  */
 
+
 const getSubject = async (req, res) => {
+
    const { standred } = req.user
 
    const subjects = await Subject.find({ standred }).select('subject')
+
    res.status(StatusCodes.OK).json({ subjects })
+
 }
 
 /**
@@ -35,8 +41,11 @@ const getSubject = async (req, res) => {
  */
 
 const createChapters = async (req, res) => {
+
    const chapters = await Chapter.create(req.body)
+
    res.status(StatusCodes.OK).json({ chapters })
+
 }
 
 /**
@@ -46,6 +55,7 @@ const createChapters = async (req, res) => {
  */
 
 const getChapters = async (req, res) => {
+
    const { subject } = req.query
 
    if (!subject) {
@@ -55,7 +65,9 @@ const getChapters = async (req, res) => {
    const chapters = await Chapter.find({ subject })
 
    res.status(StatusCodes.OK).json({ chapters })
+   
 }
+
 
 module.exports = {
    getSubject,

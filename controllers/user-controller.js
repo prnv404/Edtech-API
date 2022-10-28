@@ -43,7 +43,9 @@ const updateUser = async (req, res) => {
 
 const updatePassword = async (req, res) => {
    const { oldPassword, newPassword } = req.body;
+
    const { userId } = req.user;
+
    if (!oldPassword || !newPassword) {
       throw new CustomError.BadRequestError('please provide all values');
    }
@@ -74,11 +76,15 @@ const updatePassword = async (req, res) => {
  */
 const getUser = async (req, res) => {
    const { userId } = req.user;
+
    const user = await User.findOne({ _id: userId }).select('-password');
+
    if (!user) {
       throw new CustomError.NotFound('No user found');
    }
+
    res.status(StatusCodes.OK).json({ user });
+
 };
 
 /**
@@ -89,6 +95,7 @@ const getUser = async (req, res) => {
 
 const getAllUser = async (req, res) => {
    const users = await User.find({}).select('name mobNumber standred');
+   
    res.status(StatusCodes.OK).json({ count: users.length, users });
 };
 

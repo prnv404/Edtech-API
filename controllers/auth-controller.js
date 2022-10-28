@@ -13,26 +13,28 @@ const { createTokenUser, attachCookieToResponse } = require('../utils')
  */
 
 const signup = async (req, res) => {
-   const { name, password, mobNumber, standred } = req.body
 
-   if (!name || !password || !mobNumber || !standred) {
-      throw new CustomError.BadRequestError('Please provide all values')
-   }
+    const { name, password, mobNumber, standred } = req.body
 
-   const mobExist = await User.findOne({ mobNumber })
-   // console.log(mobExist)
-   if (mobExist) {
-      throw new CustomError.BadRequestError('mobile Number already exist')
-   }
+    if (!name || !password || !mobNumber || !standred) {
+        throw new CustomError.BadRequestError('Please provide all values')
+    }
 
-   const isFirstAccount = (await User.countDocuments({})) === 0
-   const role = isFirstAccount ? 'admin' : 'user'
+    const mobExist = await User.findOne({ mobNumber })
 
-   await User.create({ name, password, mobNumber, standred, role })
-   await createOTP({ phoneNumber: mobNumber, channel: 'sms' })
+    if (mobExist) {
+        throw new CustomError.BadRequestError('mobile Number already exist')
+    }
 
-   res.status(StatusCodes.OK).json({ message: 'done' })
+    const isFirstAccount = (await User.countDocuments({})) === 0
+    const role = isFirstAccount ? 'admin' : 'user'
+
+    await User.create({ name, password, mobNumber, standred, role })
+    await createOTP({ phoneNumber: mobNumber, channel: 'sms' })
+
+    res.status(StatusCodes.OK).json({ message: 'done' })
 }
+
 
 /**
  * It takes in a request and a response object, and returns a tokenUser object
@@ -40,34 +42,38 @@ const signup = async (req, res) => {
  * @param res - The response object.
  */
 
+
 const login = async (req, res) => {
-   const { password, mobNumber } = req.body
 
-   if (!password || !mobNumber) {
-      throw new CustomError.BadRequestError('Please provide all values')
-   }
+    const { password, mobNumber } = req.body
 
-   const user = await User.findOne({ mobNumber })
+    if (!password || !mobNumber) {
+        throw new CustomError.BadRequestError('Please provide all values')
+    }
 
-   if (!user) {
-      throw new CustomError.NotFound('No user found')
-   }
+    const user = await User.findOne({ mobNumber })
 
-   const isMatch = await user.comparePassword(password)
+    if (!user) {
+        throw new CustomError.NotFound('No user found')
+    }
 
-   if (isMatch === false) {
-      throw new CustomError.BadRequestError('Incorrect password')
-   }
+    const isMatch = await user.comparePassword(password)
 
-   if (user.isVerified === false) {
-      throw new CustomError.UnAuthorized('Please verify your account')
-   }
+    if (isMatch === false) {
+        throw new CustomError.BadRequestError('Incorrect password')
+    }
 
-   const tokenUser = createTokenUser(user)
-   attachCookieToResponse({ res, user: tokenUser })
+    if (user.isVerified === false) {
+        throw new CustomError.UnAuthorized('Please verify your account')
+    }
 
-   res.status(StatusCodes.OK).json({ tokenUser })
+    const tokenUser = createTokenUser(user)
+    attachCookieToResponse({ res, user: tokenUser })
+
+    res.status(StatusCodes.OK).json({ tokenUser })
 }
+
+
 
 /**
  * It verifies the OTP sent to the user's mobile number and then creates a JWT token for the user
@@ -75,32 +81,40 @@ const login = async (req, res) => {
  * @param res - The response object.
  */
 
+
 const verifyNumber = async (req, res) => {
-   const { mobNumber, OTP } = req.body
 
-   if (!mobNumber || !OTP) {
-      throw new CustomError.BadRequestError('Please provide all values')
-   }
+    const { mobNumber, OTP } = req.body
 
-   const user = await User.findOne({ mobNumber })
+    if (!mobNumber || !OTP) {
+        throw new CustomError.BadRequestError('Please provide all values')
+    }
 
-   const verify = await verifyOTP({ phoneNumber: mobNumber, code: OTP })
+    const user = await User.findOne({ mobNumber })
 
-   const { valid } = verify
+    if (!user) {
+        throw new CustomError.NotFound('No user found')
+    }
 
-   if (!valid === true) {
-      throw new CustomError.BadRequestError('Incorrect OTP')
-   }
+    const verify = await verifyOTP({ phoneNumber: mobNumber, code: OTP })
 
-   user.isVerified = true
+    const { valid } = verify
 
-   await user.save()
+    if (!valid === true) {
+        throw new CustomError.BadRequestError('Incorrect OTP')
+    }
 
-   const tokenUser = createTokenUser(user)
-   attachCookieToResponse({ res, user: tokenUser })
+    user.isVerified = true
 
-   res.status(StatusCodes.OK).json({ tokenUser })
+    await user.save()
+
+    const tokenUser = createTokenUser(user)
+    attachCookieToResponse({ res, user: tokenUser })
+
+    res.status(StatusCodes.OK).json({ tokenUser })
 }
+
+
 
 /**
  * It takes a mobile number from the request body, creates an OTP for that number and sends it to the
@@ -109,14 +123,21 @@ const verifyNumber = async (req, res) => {
  * @param res - The response object.
  */
 
+
 const resend = async (req, res) => {
+
    const { mobNumber } = req.body
-   if (!mobNumber) {
-      throw new CustomError.BadRequestError('Please provide mobile number')
-   }
+   
+    if (!mobNumber) {
+        throw new CustomError.BadRequestError('Please provide mobile number')
+    }
+   
    await createOTP({ phoneNumber: mobNumber, channel: 'sms' })
-   res.status(StatusCodes.OK).json({ message: 'OTP sended' })
+   
+    res.status(StatusCodes.OK).json({ message: 'OTP sended' })
 }
+
+
 
 /**
  * It sets the cookie to expire immediately, and then sends a response to the client
@@ -124,19 +145,23 @@ const resend = async (req, res) => {
  * @param res - The response object.
  */
 
-const logout = async (req, res) => {
-   res.cookie('token', 'logout', {
-      httpOnly: true,
-      expires: new Date(Date.now()),
-   })
 
-   res.status(StatusCodes.OK).josn({ message: 'ok' })
+const logout = async (req, res) => {
+
+    res.cookie('token', 'logout', {
+        httpOnly: true,
+        expires: new Date(Date.now()),
+    })
+
+    res.status(StatusCodes.OK).josn({ message: 'ok' })
 }
 
+
+
 module.exports = {
-   signup,
-   login,
-   verifyNumber,
-   logout,
-   resend,
+    signup,
+    login,
+    verifyNumber,
+    logout,
+    resend,
 }
