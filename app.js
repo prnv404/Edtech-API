@@ -19,19 +19,15 @@ const planRouter = require('./routes/plan-route')
 const paymentRouter = require('./routes/payment-route')
 const videoRouter = require('./routes/video-route')
 
-
-
-
 app.use(express.json())
 app.use(cors())
 app.use(cookieParser(process.env.JWT_SECRET))
 
-if (!process.env.NODE_ENV === 'prod') {
+if (process.env.NODE_ENV === 'Dev') {
    app.use(morgan('dev'))
 }
 
 app.use(express.static('./public'))
-
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/user', userRouter)
@@ -39,7 +35,6 @@ app.use('/api/v1/subject', courseRouter)
 app.use('/api/v1/plan', planRouter)
 app.use('/api/v1/payment', paymentRouter)
 app.use('/api/v1/video', videoRouter)
-
 
 app.use(notFound)
 app.use(errorhandler)

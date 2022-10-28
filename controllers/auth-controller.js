@@ -4,8 +4,6 @@ const { StatusCodes } = require('http-status-codes')
 const { verifyOTP, createOTP } = require('../utils/OTP')
 const { createTokenUser, attachCookieToResponse } = require('../utils')
 
-
-
 /**
  * It creates a new user in the database
  * @param req - The request object.
@@ -19,6 +17,12 @@ const signup = async (req, res) => {
 
    if (!name || !password || !mobNumber || !standred) {
       throw new CustomError.BadRequestError('Please provide all values')
+   }
+
+   const mobExist = await User.findOne({ mobNumber })
+   // console.log(mobExist)
+   if (mobExist) {
+      throw new CustomError.BadRequestError('mobile Number already exist')
    }
 
    const isFirstAccount = (await User.countDocuments({})) === 0
@@ -128,9 +132,6 @@ const logout = async (req, res) => {
 
    res.status(StatusCodes.OK).josn({ message: 'ok' })
 }
-
-
-
 
 module.exports = {
    signup,
