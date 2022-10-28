@@ -8,7 +8,6 @@ const app = express()
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
-const busboy = require('connect-busboy') // Middleware to handle the file upload https://github.com/mscdex/connect-busboy
 
 const notFound = require('./middleware/not-found')
 const errorhandler = require('./middleware/errorhandler')
@@ -20,11 +19,7 @@ const planRouter = require('./routes/plan-route')
 const paymentRouter = require('./routes/payment-route')
 const videoRouter = require('./routes/video-route')
 
-app.use(
-   busboy({
-      highWaterMark: 2 * 1024 * 1024, // Set 2MiB buffer
-   })
-)
+
 
 
 app.use(express.json())

@@ -5,19 +5,27 @@ const {
    authenticateUser,
    authorizePermission,
 } = require('../middleware/authenticate')
-// const busboy = require('../middleware/busboy')
-const uploadVideo = require('../middleware/upload')
+const videoUpload = require('../middleware/multer')
 
 const {
    getAllVideos,
    getSingleVideo,
-   createVideo
+   uploadVideo,
+   createVideo,
 } = require('../controllers/video-controller')
 
 router.route('/').get(authenticateUser, getAllVideos)
 router.route('/:id').get(authenticateUser, getSingleVideo)
 router
    .route('/upload')
-   .post(authenticateUser, authorizePermission('admin'),uploadVideo,createVideo)
+   .post(
+      authenticateUser,
+      authorizePermission('admin'),
+      videoUpload.single('video'),
+      uploadVideo
+   )
+router
+   .route('/create')
+   .post(authenticateUser, authorizePermission('admin'), createVideo)
 
 module.exports = router
