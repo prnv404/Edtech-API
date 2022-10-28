@@ -6,18 +6,7 @@
 	This is an Edtech  platform  backend that allows instructors to add courses with lessons, while students can enroll in these courses and track their progress- developed using Node, Express and MongoDB.
 </h3>
 
-<p align="center">
-	<img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"/>
-	<img src="https://img.shields.io/github/license/prnv404/Edtech-backend?color=green"/>
-	<img src="https://img.shields.io/github/repo-size/prnv404/Edtech-backend?color=green"/>
-	<img src="https://img.shields.io/github/last-commit/prnv404/Edtech-backend?color=green"/>
-	<img src="https://img.shields.io/github/languages/count/prnv404/Edtech-backend?color=green"/>
-	<img src="https://img.shields.io/github/contributors/prnv404/Edtech-backend?color=green"/>
-	<img src="https://img.shields.io/github/issues-raw/prnv404/Edtech-backend?color=green"/>
-	<img src="https://img.shields.io/github/issues-closed-raw/prnv404/Edtech-backend?color=green"/>
-	<img src="https://img.shields.io/github/issues-pr-raw/prnv404/Edtech-backend?color=green"/>
-	<img src="https://img.shields.io/github/issues-pr-closed-raw/prnv404/Edtech-backend?color=green"/>
-</p>
+
 
 <h4 align="center">
 	Status: 🚧 In Construction
