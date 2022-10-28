@@ -13,6 +13,7 @@ const createCourse = async (req, res) => {
 
 const getAllCourse = async (req, res) => {
    const course = await Course.find({})
+   
    res.status(StatusCodes.CREATED).json(course)
 }
 
