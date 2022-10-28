@@ -13,7 +13,6 @@ const { createTokenUser, attachCookieToResponse } = require('../utils')
  */
 
 const signup = async (req, res) => {
-
     const { name, password, mobNumber, standred } = req.body
 
     if (!name || !password || !mobNumber || !standred) {
@@ -35,16 +34,13 @@ const signup = async (req, res) => {
     res.status(StatusCodes.OK).json({ message: 'done' })
 }
 
-
 /**
  * It takes in a request and a response object, and returns a tokenUser object
  * @param req - The request object.
  * @param res - The response object.
  */
 
-
 const login = async (req, res) => {
-
     const { password, mobNumber } = req.body
 
     if (!password || !mobNumber) {
@@ -73,17 +69,13 @@ const login = async (req, res) => {
     res.status(StatusCodes.OK).json({ tokenUser })
 }
 
-
-
 /**
  * It verifies the OTP sent to the user's mobile number and then creates a JWT token for the user
  * @param req - The request object.
  * @param res - The response object.
  */
 
-
 const verifyNumber = async (req, res) => {
-
     const { mobNumber, OTP } = req.body
 
     if (!mobNumber || !OTP) {
@@ -114,8 +106,6 @@ const verifyNumber = async (req, res) => {
     res.status(StatusCodes.OK).json({ tokenUser })
 }
 
-
-
 /**
  * It takes a mobile number from the request body, creates an OTP for that number and sends it to the
  * user via SMS
@@ -123,21 +113,17 @@ const verifyNumber = async (req, res) => {
  * @param res - The response object.
  */
 
-
 const resend = async (req, res) => {
+    const { mobNumber } = req.body
 
-   const { mobNumber } = req.body
-   
     if (!mobNumber) {
         throw new CustomError.BadRequestError('Please provide mobile number')
     }
-   
-   await createOTP({ phoneNumber: mobNumber, channel: 'sms' })
-   
+
+    await createOTP({ phoneNumber: mobNumber, channel: 'sms' })
+
     res.status(StatusCodes.OK).json({ message: 'OTP sended' })
 }
-
-
 
 /**
  * It sets the cookie to expire immediately, and then sends a response to the client
@@ -145,9 +131,7 @@ const resend = async (req, res) => {
  * @param res - The response object.
  */
 
-
 const logout = async (req, res) => {
-
     res.cookie('token', 'logout', {
         httpOnly: true,
         expires: new Date(Date.now()),
@@ -155,8 +139,6 @@ const logout = async (req, res) => {
 
     res.status(StatusCodes.OK).josn({ message: 'ok' })
 }
-
-
 
 module.exports = {
     signup,
