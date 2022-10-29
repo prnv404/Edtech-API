@@ -24,11 +24,10 @@ app.use(cors())
 app.use(cookieParser(process.env.JWT_SECRET))
 
 if (process.env.NODE_ENV === 'Dev') {
-   app.use(morgan('dev'))
+    app.use(morgan('dev'))
 }
 
-app.use(express.static('./public'))
-
+app.use(express.static('./public/landingPage'))
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/user', userRouter)
@@ -36,7 +35,6 @@ app.use('/api/v1/subject', courseRouter)
 app.use('/api/v1/plan', planRouter)
 app.use('/api/v1payment', paymentRouter)
 app.use('/api/v1/video', videoRouter)
-
 
 app.use(notFound)
 app.use(errorhandler)
