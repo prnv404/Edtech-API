@@ -19,12 +19,6 @@ const signup = async (req, res) => {
         throw new CustomError.BadRequestError('Please provide all values')
     }
 
-    const mobExist = await User.findOne({ mobNumber })
-
-    if (mobExist) {
-        throw new CustomError.BadRequestError('mobile Number already exist')
-    }
-
     const isFirstAccount = (await User.countDocuments({})) === 0
     const role = isFirstAccount ? 'admin' : 'user'
 
