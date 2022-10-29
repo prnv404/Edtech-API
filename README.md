@@ -18,10 +18,14 @@
 <img src="https://img.shields.io/badge/Nodejs-05122A?style=flat&logo=node.js" alt="nodejs Badge" height="25">&nbsp;
 
 ## Serivce Used 
- #Twilio
- #Vimeo
- #Razorpay
- #MongoDB Atlas
+
+<ol>
+	<li>Twilio</li>
+	<li>Vimeo</li>
+	<li>Razorpay</li>
+	<li> MongoDB Atlas</li>
+</ol>
+
 
 ## Installation
 To Install this project, follow the steps Below:
