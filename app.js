@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === 'Dev') {
 }
 
 
-app.use(express.static('./public/landing-page'))
+app.use(express.static('./public'))
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/user', userRouter)
