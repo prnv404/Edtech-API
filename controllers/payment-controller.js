@@ -4,6 +4,7 @@ const { StatusCodes } = require('http-status-codes')
 const Course = require('../models/course-model')
 
 const Razorpay = require('razorpay')
+const { UserBindingContext } = require('twilio/lib/rest/chat/v2/service/user/userBinding')
 
 var instance = new Razorpay({
     key_id: process.env.KEY_ID,
@@ -78,10 +79,7 @@ const verifyPayment = async (req, res) => {
     if (digest === req.headers['x-razorpay-signature']) {
         console.log('request is legit')
         // process it
-        require('fs').writeFileSync(
-            'payment1.json',
-            JSON.stringify(req.body, null, 4)
-        )
+    //    const user = await User.findOne()
     } else {
         // pass it
     }
