@@ -1,4 +1,13 @@
+/**
+* Template Name: Bootslander - v4.9.1
+* Template URL: https://bootstrapmade.com/bootslander-free-bootstrap-landing-page-template/
+* Author: BootstrapMade.com
+* License: https://bootstrapmade.com/license/
+*/
 
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
 body {
   font-family: "Open Sans", sans-serif;
   color: #444444;
@@ -121,7 +130,7 @@ h6 {
   transition: all 0.5s;
   z-index: 997;
   transition: all 0.5s;
-  background:  rgba(97, 2, 160, 0.91);
+  background: rgba(1, 4, 136, 0.9);
 }
 
 #header.header-transparent {
@@ -129,7 +138,7 @@ h6 {
 }
 
 #header.header-scrolled {
-  background:  rgba(97, 2, 160, 0.91);
+  background: rgba(1, 4, 136, 0.9);
   height: 60px;
 }
 
@@ -413,14 +422,14 @@ h6 {
 --------------------------------------------------------------*/
 #hero {
   width: 100%;
-  background: url("../img/abstract_geometric_banner_design_2507.jpg");
+  background: url("../img/hero-bg.jpg");
   position: relative;
   padding: 120px 0 0 0;
 }
 
 #hero:before {
   content: "";
-  background: rgba(2, 110, 160, 0.91);
+  background: rgba(2, 5, 161, 0.91);
   position: absolute;
   bottom: 0;
   top: 0;
@@ -457,7 +466,7 @@ h6 {
   border-radius: 50px;
   transition: 0.5s;
   color: #fff;
-  background: #1aa2cc;
+  background: #1acc8d;
 }
 
 #hero .btn-get-started:hover {
@@ -797,26 +806,21 @@ section {
 }
 
 .about .video-box {
-  background: url("../img/download\ \(1\).png") center center no-repeat;
+  background: url("../img/about.png") center center no-repeat;
   background-size: contain;
   min-height: 300px;
 }
 
 .about .play-btn {
-  width: 0;
-  border-radius: 5px;
-  height: 0;
-  border: 5.8vw solid transparent;
-  border-right: 0;
-  border-left: 11vw solid rgb(238, 238, 238);
-  opacity: 50%;
-  background: radial-gradient(#ffffff 50%, rgba(255, 255, 255, 0.4) 52%);
+  width: 94px;
+  height: 94px;
+  background: radial-gradient(#3f43fd 50%, rgba(63, 67, 253, 0.4) 52%);
+  border-radius: 50%;
   display: block;
   position: absolute;
-  left:43% ;
-  top: 38%;
+  left: calc(50% - 47px);
+  top: calc(50% - 47px);
   overflow: hidden;
-  animation: pulse-border 3s infinite;
 }
 
 .about .play-btn::after {
@@ -880,13 +884,26 @@ section {
   border-radius: 0;
 }
 
-@keyframes pulse-border {
+@-webkit-keyframes pulsate-btn {
   0% {
-    transform:  scale(1);
+    transform: scale(0.6, 0.6);
     opacity: 1;
   }
+
   100% {
-    transform:  scale(1.2);
+    transform: scale(1, 1);
+    opacity: 0;
+  }
+}
+
+@keyframes pulsate-btn {
+  0% {
+    transform: scale(0.6, 0.6);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1, 1);
     opacity: 0;
   }
 }
