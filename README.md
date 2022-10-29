@@ -2,7 +2,7 @@
 	Edtech backend
 </h1>
 
-<h3 align="center">
+<h3 align="">
 	This is an Edtech  platform  backend that allows instructors to add courses with lessons, while students can enroll in these courses and track their progress- developed using Node, Express and MongoDB.
 </h3>
 
@@ -12,18 +12,13 @@
 	Status: 🚧 In Construction
 </h4>
 
-<p align="center">
-	<a href="#tech-stack">Tech Stack</a> •
-	<a href="#installation">Installation</a> •
-	<a href="#usage">Usage</a> • 
-	<a href="#contact">Contact</a> 
-</p>
+
 
 ## Tech Stack
 <img src="https://img.shields.io/badge/Nodejs-05122A?style=flat&logo=node.js" alt="nodejs Badge" height="25">&nbsp;
 
 ## Installation
-To Install this project, follow the steps above:
+To Install this project, follow the steps below:
 ```bash
 git clone https://github.com/prnv404/Edtech-backend.git
 cd Edtech-backend
