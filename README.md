@@ -12,26 +12,31 @@
 	Status: 🚧 In Construction
 </h4>
 
-<p align="center">
-	<a href="#tech-stack">Tech Stack</a> •
-	<a href="#installation">Installation</a> •
-	<a href="#usage">Usage</a> • 
-	<a href="#contact">Contact</a> 
-</p>
+
 
 ## Tech Stack
 <img src="https://img.shields.io/badge/Nodejs-05122A?style=flat&logo=node.js" alt="nodejs Badge" height="25">&nbsp;
 
+Serivce Used 
+ .Twilio
+ .Vimeo
+ .Razorpay
+ .MongoDB Atlas
+
 ## Installation
-To Install this project, follow the steps above:
+To Install this project, follow the steps Below:
 ```bash
 git clone https://github.com/prnv404/Edtech-backend.git
 cd Edtech-backend
 npm install
 ```
+#Before Spinning Server
+ 
+  Create .env file and User your own API Keys 
 
 ## Usage
-To use this project, follow the steps above:
+To use this project, follow the steps Below:
+
 ```bash
 npm run dev
 ```
