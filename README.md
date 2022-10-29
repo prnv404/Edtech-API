@@ -17,7 +17,7 @@
 ## Tech Stack
 <img src="https://img.shields.io/badge/Nodejs-05122A?style=flat&logo=node.js" alt="nodejs Badge" height="25">&nbsp;
 
-Serivce Used 
+## Serivce Used 
  .Twilio
  .Vimeo
  .Razorpay
@@ -30,7 +30,7 @@ git clone https://github.com/prnv404/Edtech-backend.git
 cd Edtech-backend
 npm install
 ```
-#Before Spinning Server
+## Before Spinning Server
  
   Create .env file and User your own API Keys 
 
