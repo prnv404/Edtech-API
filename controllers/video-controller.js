@@ -24,14 +24,14 @@ TODO:
  */
 
 const getAllVideos = async (req, res) => {
-   const { standred } = req.user.standred
-   
-   const { subject, chapter } = req.query
-   
+    const { standred } = req.user.standred
+
+    const { subject, chapter } = req.query
+
     if (!subject || !chapter) {
         throw new CustomError.BadRequestError('Please provide all values')
     }
-   
+
     const videos = await Video.find(standred, subject, chapter).sort(
         'positionOfVideo'
     )
@@ -63,8 +63,8 @@ const getSingleVideo = async (req, res) => {
  */
 
 const uploadVideo = async (req, res) => {
-   let file_name = req.file.path
-   
+    let file_name = req.file.path
+
     client.upload(
         file_name,
         {

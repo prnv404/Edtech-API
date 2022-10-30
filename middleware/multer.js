@@ -12,7 +12,7 @@ const videoStorage = multer.diskStorage({
    
 })
 
-const videoUpload = multer({
+const videoUpload =  multer({
    storage: videoStorage,
    limits: {
       fileSize: 2e9, //  2GB
