@@ -29,11 +29,7 @@
 
 
 ## Installation
-<<<<<<< HEAD
-To Install this project, follow the steps below:
-=======
 To Install this project, follow the steps Below:
->>>>>>> 418f267c1cf09659fee8eb07450ce933efa2bb19
 ```bash
 git clone https://github.com/prnv404/Edtech-backend.git
 cd Edtech-backend
