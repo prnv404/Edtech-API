@@ -2,9 +2,9 @@
 <h1 align="center">
 	Edtech backend
 </h1>
-<h3>
 
-	## This is an Edtech  platform  backend that allows instructors to add courses with lessons, while students can enroll in these courses and track their progress- developed using Node, Express and MongoDB.
+##<h3>
+ This is an Edtech  platform  backend that allows instructors to add courses with lessons, while students can enroll in these courses and track their progress- developed using Node, Express and MongoDB.
 </h3>
 
 
