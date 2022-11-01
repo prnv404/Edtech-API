@@ -25,7 +25,7 @@
 
 ## Features
 
-<h2>Authentication</h1>
+<h3>Authentication</h3>
 <ol>
    	<li>SignUp [public]</li>
 	<li>Login [public]</li>
@@ -34,7 +34,7 @@
 	<li>Resend OTP [public]</li>
 </ol>
 
-<h2>Get chapters and subject</h1>
+<h3>Get chapters and subject</h3>
 <ol>
    	<li>Get subject [public]</li>
 	<li>Get chapters [public]</li>
@@ -42,7 +42,7 @@
 	<li>create subject [admin]</li>
 </ol>
 
-<h2>Get chapters and subject</h1>
+<h3>Get chapters and subject</h3>
 <ol>
    	<li>Get subject [public]</li>
 	<li>Get chapters [public]</li>
@@ -50,19 +50,19 @@
 	<li>create subject [admin]</li>
 </ol>
 
-<h2>Course Plan</h1>
+<h3>Course Plan</h3>
 <ol>
    	<li>Get course [public]</li>
 	<li>Create course [admin]</li>
 </ol>
 
-<h2>Payment</h1>
+<h3>Payment</h1>
 <ol>
    	<li>Create Order [public]</li>
 	<li>Verify Payment [protected]</li>
 </ol>
 
-<h2>User</h1>
+<h3>User</h3>
 <ol>
    	<li> Update User [protected]</li>
 	<li>Get User [protected]</li>
@@ -70,7 +70,7 @@
 	<li> Get All User [Admin]>
 </ol>
 
-<h2>Video</h1>
+<h3>Video</h3>
 <ol>
    	<li> Get All Videos [public]</li>
 	<li>Get Single Video [protected]</li>
