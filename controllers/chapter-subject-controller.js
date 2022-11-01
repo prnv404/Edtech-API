@@ -1,7 +1,7 @@
+const { StatusCodes } = require('http-status-codes')
 const CustomError = require('../errors')
 const Subject = require('../models/subject-model')
 const Chapter = require('../models/chapter-model')
-const { StatusCodes } = require('http-status-codes')
 
 /**
  * It creates a subject and returns it
@@ -11,11 +11,10 @@ const { StatusCodes } = require('http-status-codes')
  */
 
 const createSubject = async (req, res) => {
-   const subject = await Subject.create(req.body)
+    const subject = await Subject.create(req.body)
 
-   res.status(StatusCodes.CREATED).json({ subject })
+    res.status(StatusCodes.CREATED).json({ subject })
 }
-
 
 /**
  * It fetches the subjects of the standred of the user
@@ -23,15 +22,12 @@ const createSubject = async (req, res) => {
  * @param res - The response object.
  */
 
-
 const getSubject = async (req, res) => {
+    const { standred } = req.user
 
-   const { standred } = req.user
+    const subjects = await Subject.find({ standred }).select('subject')
 
-   const subjects = await Subject.find({ standred }).select('subject')
-
-   res.status(StatusCodes.OK).json({ subjects })
-
+    res.status(StatusCodes.OK).json({ subjects })
 }
 
 /**
@@ -41,11 +37,9 @@ const getSubject = async (req, res) => {
  */
 
 const createChapters = async (req, res) => {
+    const chapters = await Chapter.create(req.body)
 
-   const chapters = await Chapter.create(req.body)
-
-   res.status(StatusCodes.OK).json({ chapters })
-
+    res.status(StatusCodes.OK).json({ chapters })
 }
 
 /**
@@ -55,23 +49,20 @@ const createChapters = async (req, res) => {
  */
 
 const getChapters = async (req, res) => {
+    const { subject } = req.query
 
-   const { subject } = req.query
+    if (!subject) {
+        throw new CustomError.BadRequestError('No subject')
+    }
 
-   if (!subject) {
-      throw new CustomError.BadRequestError('No subject')
-   }
+    const chapters = await Chapter.find({ subject })
 
-   const chapters = await Chapter.find({ subject })
-
-   res.status(StatusCodes.OK).json({ chapters })
-   
+    res.status(StatusCodes.OK).json({ chapters })
 }
 
-
 module.exports = {
-   getSubject,
-   getChapters,
-   createSubject,
-   createChapters,
+    getSubject,
+    getChapters,
+    createSubject,
+    createChapters,
 }

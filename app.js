@@ -1,8 +1,10 @@
 const dotenv = require('dotenv')
+
 dotenv.config()
 require('express-async-errors')
 
 const express = require('express')
+
 const app = express()
 
 const morgan = require('morgan')
@@ -27,9 +29,7 @@ if (process.env.NODE_ENV === 'Dev') {
     app.use(morgan('dev'))
 }
 
-
 app.use(express.static('./public'))
-
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/user', userRouter)

@@ -1,0 +1,12 @@
+{
+    "extends": ["prettier", "airbnb"],
+    "plugins": ["prettier"],
+    "rules": {
+        "no-unused-vars": "warn",
+        "no-console": "warn",
+        "semi": "off",
+        "indent": "off",
+        "max-len": "off",
+        "object-curly-newline": "off"
+    }
+}
