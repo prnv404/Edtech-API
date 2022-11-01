@@ -1,12 +1,11 @@
-const Order = require('../models/order-model')
-const CustomError = require('../errors')
 const { StatusCodes } = require('http-status-codes')
-const Course = require('../models/course-model')
-
 const Razorpay = require('razorpay')
 const { UserBindingContext } = require('twilio/lib/rest/chat/v2/service/user/userBinding')
+const Order = require('../models/order-model')
+const CustomError = require('../errors')
+const Course = require('../models/course-model')
 
-var instance = new Razorpay({
+const instance = new Razorpay({
     key_id: process.env.KEY_ID,
     key_secret: process.env.KEY_SECRET,
 })
@@ -32,12 +31,12 @@ const createOrder = async (req, res) => {
     }
 
     const order = {
-        price: price,
-        course: course,
+        price,
+        course,
         user: req.user.userId,
     }
 
-    let receiptId = Math.random() * 10000
+    const receiptId = Math.random() * 10000
 
     receiptId.toString()
 

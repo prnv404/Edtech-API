@@ -1,6 +1,6 @@
+const { StatusCodes } = require('http-status-codes')
 const User = require('../models/user-model')
 const CustomError = require('../errors')
-const { StatusCodes } = require('http-status-codes')
 const { verifyOTP, createOTP } = require('../utils/OTP')
 const { createTokenUser, attachCookieToResponse } = require('../utils')
 
@@ -22,7 +22,13 @@ const signup = async (req, res) => {
     const isFirstAccount = (await User.countDocuments({})) === 0
     const role = isFirstAccount ? 'admin' : 'user'
 
-    await User.create({ name, password, mobNumber, standred, role })
+    await User.create({
+        name,
+        password,
+        mobNumber,
+        standred,
+        role,
+    })
     await createOTP({ phoneNumber: mobNumber, channel: 'sms' })
 
     res.status(StatusCodes.OK).json({ message: 'done' })

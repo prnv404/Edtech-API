@@ -1,5 +1,5 @@
-const CustomError = require('../errors')
 const { StatusCodes } = require('http-status-codes')
+const CustomError = require('../errors')
 const Course = require('../models/course-model')
 
 const createCourse = async (req, res) => {
@@ -13,7 +13,7 @@ const createCourse = async (req, res) => {
 
 const getAllCourse = async (req, res) => {
    const course = await Course.find({})
-   
+
    res.status(StatusCodes.CREATED).json(course)
 }
 
