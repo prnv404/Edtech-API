@@ -42,14 +42,6 @@
 	<li>create subject [admin]</li>
 </ol>
 
-<h3>Get chapters and subject</h3>
-<ol>
-   	<li>Get subject [public]</li>
-	<li>Get chapters [public]</li>
-	<li>Create chapter [admin]</li>
-	<li>create subject [admin]</li>
-</ol>
-
 <h3>Course Plan</h3>
 <ol>
    	<li>Get course [public]</li>
