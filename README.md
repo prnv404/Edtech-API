@@ -80,11 +80,11 @@ cd Edtech-backend
 npm install
 ```
 
-## Before Spinning Server
+## Before Spinning the Server
 
 Create .env file and use your own API Keys
 
-## Usage
+## Start Server
 
 To use this project, follow the steps Below:
 
