@@ -1,13 +1,14 @@
-const BadRequestError = require('./badRequest.js');
-const UnAuthorized = require('./unAuthorized.js');
-const unAutenticated = require('./UnAuthenticated.js');
-const NotFound = require('./notFound.js');
-const CustomApiError = require('./custom-api.js');
+/* eslint-disable import/extensions */
+const BadRequestError = require('./badRequest')
+const UnAuthorized = require('./unAuthorized')
+const UnAutenticated = require('./UnAuthenticated')
+const NotFound = require('./notFound.js')
+const CustomApiError = require('./custom-api')
 
-module.exports=  {
-  BadRequestError,
-  UnAuthorized,
-  unAutenticated,
-  NotFound,
-  CustomApiError,
-};
+module.exports = {
+    BadRequestError,
+    UnAuthorized,
+    UnAutenticated,
+    NotFound,
+    CustomApiError,
+}

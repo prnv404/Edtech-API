@@ -2,11 +2,22 @@
     "extends": ["prettier", "airbnb"],
     "plugins": ["prettier"],
     "rules": {
-        "no-unused-vars": "warn",
-        "no-console": "warn",
+        "prettier/prettier": "error",
+        "no-unused-vars": "off",
+        "no-console": "off",
         "semi": "off",
         "indent": "off",
         "max-len": "off",
-        "object-curly-newline": "off"
+        "object-curly-newline": "off",
+        "camelcase": "off",
+        "comma-dangle": "off",
+        "no-useless-constructor": "off",
+        "operator-linebreak": "off",
+        "implicit-arrow-linebreak": "off",
+        "prefer-const": "off",
+        "no-underscore-dangle": "off",
+        "consistent-return": "off",
+        "func-names": "off",
+        "arrow-body-style": "off"
     }
 }

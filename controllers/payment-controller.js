@@ -1,6 +1,9 @@
 const { StatusCodes } = require('http-status-codes')
 const Razorpay = require('razorpay')
-const { UserBindingContext } = require('twilio/lib/rest/chat/v2/service/user/userBinding')
+const crypto = require('crypto')
+const {
+    UserBindingContext,
+} = require('twilio/lib/rest/chat/v2/service/user/userBinding')
 const Order = require('../models/order-model')
 const CustomError = require('../errors')
 const Course = require('../models/course-model')
@@ -45,7 +48,7 @@ const createOrder = async (req, res) => {
     price.toString()
 
     try {
-        const order = await instance.orders.create({
+        const result = await instance.orders.create({
             amount: price * 100,
             currency: 'INR',
             receipt: receiptId,
@@ -53,7 +56,7 @@ const createOrder = async (req, res) => {
 
         res.status(StatusCodes.CREATED).json({
             success: true,
-            order,
+            result,
             price,
         })
     } catch (error) {
@@ -67,8 +70,6 @@ const verifyPayment = async (req, res) => {
 
     console.log(req.body)
 
-    const crypto = require('crypto')
-
     const shasum = crypto.createHmac('sha256', secret)
     shasum.update(JSON.stringify(req.body))
     const digest = shasum.digest('hex')
@@ -78,7 +79,7 @@ const verifyPayment = async (req, res) => {
     if (digest === req.headers['x-razorpay-signature']) {
         console.log('request is legit')
         // process it
-    //    const user = await User.findOne()
+        //    const user = await User.findOne()
     } else {
         // pass it
     }

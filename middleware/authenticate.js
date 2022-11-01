@@ -1,5 +1,5 @@
-const CustomError = require('../errors/index.js')
-const { isTokenValid } = require('../utils/jwt.js')
+const CustomError = require('../errors/index')
+const { isTokenValid } = require('../utils/jwt')
 
 /**
  * It checks if the user is logged in and if the user is verified
@@ -9,22 +9,22 @@ const { isTokenValid } = require('../utils/jwt.js')
  * function in the stack.
  */
 const authenticateUser = async (req, res, next) => {
-   const token = req.signedCookies.token
-   if (!token) {
-      throw new CustomError.unAutenticated('please signup or login')
-   }
-   try {
-      const payload = isTokenValid({ token })
-      const { isVerified } = payload
-      if (isVerified === false) {
-         throw new CustomError.unAutenticated('You are not verified')
-      }
-      req.user = payload
-      next()
-   } catch (error) {
-      console.log(error)
-      throw new CustomError.unAutenticated('Token error')
-   }
+    const { token } = req.signedCookies
+    if (!token) {
+        throw new CustomError.UnAutenticated('please signup or login')
+    }
+    try {
+        const payload = isTokenValid({ token })
+        const { isVerified } = payload
+        if (isVerified === false) {
+            throw new CustomError.UnAutenticated('You are not verified')
+        }
+        req.user = payload
+        next()
+    } catch (error) {
+        console.log(error)
+        throw new CustomError.UnAutenticated('Token error')
+    }
 }
 
 /**
@@ -34,15 +34,15 @@ const authenticateUser = async (req, res, next) => {
  * @param roles - An array of roles that are allowed to access the route.
  * @returns A function that takes 3 arguments (req, res, next)
  */
-const authorizePermission = (...roles) => {
-   return (req, res, next) => {
-      if (!roles.includes(req.user.role)) {
-         throw new CustomError.unAutenticated(
-            'You have no permission to access to this route'
-         )
-      }
-      next()
-   }
-}
+const authorizePermission =
+    (...roles) =>
+    (req, res, next) => {
+        if (!roles.includes(req.user.role)) {
+            throw new CustomError.UnAutenticated(
+                'You have no permission to access to this route'
+            )
+        }
+        next()
+    }
 
 module.exports = { authenticateUser, authorizePermission }

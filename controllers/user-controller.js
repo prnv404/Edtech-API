@@ -1,7 +1,7 @@
-const User = require('../models/user-model');
-const CustomError = require('../errors');
-const { createTokenUser, attachCookieToResponse } = require('../utils');
-const { StatusCodes } = require('http-status-codes');
+const { StatusCodes } = require('http-status-codes')
+const User = require('../models/user-model')
+const CustomError = require('../errors')
+const { createTokenUser, attachCookieToResponse } = require('../utils')
 
 /**
  * It updates the user's standred
@@ -9,29 +9,29 @@ const { StatusCodes } = require('http-status-codes');
  * @param res - The response object.
  */
 const updateUser = async (req, res) => {
-   const { userId } = req.user;
+    const { userId } = req.user
 
-   const { standred } = req.body;
+    const { standred } = req.body
 
-   if (!standred) {
-      throw new CustomError.BadRequestError('please provide standred');
-   }
+    if (!standred) {
+        throw new CustomError.BadRequestError('please provide standred')
+    }
 
-   const user = await User.findOne({ _id: userId }).select('-password');
+    const user = await User.findOne({ _id: userId }).select('-password')
 
-   if (!user) {
-      throw new CustomError.NotFound('No user found');
-   }
+    if (!user) {
+        throw new CustomError.NotFound('No user found')
+    }
 
-   user.standred = standred;
+    user.standred = standred
 
-   await user.save();
+    await user.save()
 
-   const tokenUser = createTokenUser(user);
-   attachCookieToResponse({ res, user: tokenUser });
+    const tokenUser = createTokenUser(user)
+    attachCookieToResponse({ res, user: tokenUser })
 
-   res.status(StatusCodes.OK).json({ user });
-};
+    res.status(StatusCodes.OK).json({ user })
+}
 
 /**
  * It takes the old password and the new password from the request body, finds the user in the
@@ -42,32 +42,32 @@ const updateUser = async (req, res) => {
  */
 
 const updatePassword = async (req, res) => {
-   const { oldPassword, newPassword } = req.body;
+    const { oldPassword, newPassword } = req.body
 
-   const { userId } = req.user;
+    const { userId } = req.user
 
-   if (!oldPassword || !newPassword) {
-      throw new CustomError.BadRequestError('please provide all values');
-   }
+    if (!oldPassword || !newPassword) {
+        throw new CustomError.BadRequestError('please provide all values')
+    }
 
-   const user = await User.findOne({ _id: userId });
+    const user = await User.findOne({ _id: userId })
 
-   if (!user) {
-      throw new CustomError.BadRequestError('No user found');
-   }
+    if (!user) {
+        throw new CustomError.BadRequestError('No user found')
+    }
 
-   const isMatch = user.comparePassword(oldPassword);
-   if (!isMatch) {
-      throw new CustomError.BadRequestError('incorrect password');
-   }
+    const isMatch = user.comparePassword(oldPassword)
+    if (!isMatch) {
+        throw new CustomError.BadRequestError('incorrect password')
+    }
 
-   user.password = newPassword;
-   await user.save();
+    user.password = newPassword
+    await user.save()
 
-   res.status(StatusCodes.ACCEPTED).json({
-      message: 'password updated succesfully',
-   });
-};
+    res.status(StatusCodes.ACCEPTED).json({
+        message: 'password updated succesfully',
+    })
+}
 
 /**
  * It gets the userId from the request object, finds the user in the database, and returns the user
@@ -75,17 +75,16 @@ const updatePassword = async (req, res) => {
  * @param res - The response object.
  */
 const getUser = async (req, res) => {
-   const { userId } = req.user;
+    const { userId } = req.user
 
-   const user = await User.findOne({ _id: userId }).select('-password');
+    const user = await User.findOne({ _id: userId }).select('-password')
 
-   if (!user) {
-      throw new CustomError.NotFound('No user found');
-   }
+    if (!user) {
+        throw new CustomError.NotFound('No user found')
+    }
 
-   res.status(StatusCodes.OK).json({ user });
-
-};
+    res.status(StatusCodes.OK).json({ user })
+}
 
 /**
  * It gets all the users from the database and returns them in the response
@@ -94,15 +93,13 @@ const getUser = async (req, res) => {
  */
 
 const getAllUser = async (req, res) => {
-   const users = await User.find({}).select('name mobNumber standred');
-   
-   res.status(StatusCodes.OK).json({ count: users.length, users });
-};
+    const users = await User.find({}).select('name mobNumber standred')
 
-
+    res.status(StatusCodes.OK).json({ count: users.length, users })
+}
 module.exports = {
-   updateUser,
-   getUser,
-   updatePassword,
-   getAllUser,
-};
+    updateUser,
+    getUser,
+    updatePassword,
+    getAllUser,
+}
