@@ -31,7 +31,7 @@ router
 router.route('/videos').get(authenticateUser, getAllVideos)
 router
    .route('videos/:id')
-   .get(authenticateUser, authorizePermission('admin'), getSingleVideo)
+   .get(authenticateUser, getSingleVideo)
 router
    .route('/createVideo')
    .post(authenticateUser, authorizePermission('admin'), createVideo)
