@@ -4,12 +4,14 @@ const CustomError = require('../errors')
 const { verifyOTP, createOTP } = require('../utils/OTP')
 const { createTokenUser, attachCookieToResponse } = require('../utils')
 
+// TODO: Forget password
+
 /**
+ *
  * It creates a new user in the database
  * @param req - The request object.
  * @param res - The response object.
- * !more work required
- * TODO add new features
+ *
  */
 
 const signup = async (req, res) => {
