@@ -11,10 +11,8 @@ const client = new Vimeo(
 
 /*
 TODO:
-
    1.GET ALL VIDEO CONTROLLER
    2.CREATE VIDEO CONTROLLER
-
 */
 
 /**
