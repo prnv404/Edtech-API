@@ -65,7 +65,7 @@
 <h3>Video</h3>
 <ol>
    	<li> Get All Videos [public]</li>
-	<li>Get Single Video [protected]</li>
+	<li>Get Single Video [public]</li>
 	<li> Upload Video [Admin]</li>
 	<li> Create Video [Admin]</li>
 </ol>
